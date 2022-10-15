@@ -1,0 +1,294 @@
+{
+  "importGoods":[
+    {
+      "name":"加拿大原装进口 原始猎食渴望 六种鱼肉+美毛专用配方 全犬粮 2kg",
+      "imgUrl":"src/assets/goods/jkzl1.png",
+      "oldPrice":"470.80",
+      "newPrice":"390.00",
+      "sales":"380",
+      "goods_id":1100,
+      "age":"全年龄"
+    },
+    {
+      "name":"加拿大原装进口 爱肯拿Acana 无谷深海鱼配方全犬粮 11.4kg",
+      "imgUrl":"src/assets/goods/jkzl2.png",
+      "oldPrice":"1480.20",
+      "newPrice":"1020.00",
+      "sales":"180",
+      "goods_id":1101,
+      "age":"全年龄"
+    },
+    {
+      "name":"加拿大原装进口纽顿nutram number 无谷低升糖系列 T28鲑鱼&鳟鱼配方小型&玩赏犬粮 1.82kg",
+      "imgUrl":"src/assets/goods/jkzl3.png",
+      "oldPrice":"400.20",
+      "newPrice":"276.00",
+      "sales":"430",
+      "goods_id":1102,
+      "age":"幼龄"
+    },
+    {
+      "name":"加拿大原装进口 原始猎食渴望 六种鱼肉+美毛专用配方 全犬粮 11.4kg ",
+      "imgUrl":"src/assets/goods/jkzl4.png",
+      "oldPrice":"1030.20",
+      "newPrice":"970.00",
+      "sales":"230",
+      "goods_id":1103,
+      "age":"全年龄"
+    },
+    {
+      "name":"加拿大原装进口 原始猎食渴望 六种鱼肉+美毛专用配方 全犬粮 6kg",
+      "imgUrl":"src/assets/goods/jkzl5.png",
+      "oldPrice":"779.20",
+      "newPrice":"610.00",
+      "sales":"269",
+      "goods_id":1104,
+      "age":"全年龄"
+    },
+    {
+      "name":"加拿大原装进口 爱肯拿Acana 无谷深海鱼配方全犬粮 6kg",
+      "imgUrl":"src/assets/goods/jkzl6.png",
+      "oldPrice":"637.20",
+      "newPrice":"550.00",
+      "sales":"319",
+      "goods_id":1105,
+      "age":"全年龄"
+    },
+    {
+      "name":"新西兰原装进口耐吉斯SOLUTION 无谷羊肉配方 1.5kg",
+      "imgUrl":"src/assets/goods/jkzl7.png",
+      "oldPrice":"302.20",
+      "newPrice":"180.00",
+      "sales":"619",
+      "goods_id":1106,
+      "age":"成龄"
+    },
+    {
+      "name":"加拿大原装进口纽顿nutram number 均衡低敏系列 S2鸡肉&全蛋配方幼犬粮 11.4kg",
+      "imgUrl":"src/assets/goods/jkzl8.png",
+      "oldPrice":"967.20",
+      "newPrice":"848.00",
+      "sales":"119",
+      "goods_id":1107,
+      "age":"幼龄"
+    },
+    {
+      "name":"皇家进口猫湿粮 离乳期幼猫慕斯非零食195g*12罐",
+      "imgUrl":"src/assets/goods/jkzl9.jpg",
+      "oldPrice":"592.20",
+      "newPrice":"438.00",
+      "sales":"300",
+      "goods_id":1108,
+      "age":"成龄"
+    },
+    {
+      "name":"加拿大进口枫趣猫粮无谷高蛋白莱芙火鸡肉成猫幼猫通用猫",
+      "imgUrl":"src/assets/goods/jkzl10.jpg",
+      "oldPrice":"268.20",
+      "newPrice":"199.00",
+      "sales":"159",
+      "goods_id":1109,
+      "age":"成龄"
+    },
+    {
+      "name":"新品上市皇家进口犬湿粮 离乳期幼犬慕斯奶糕罐头非零食全价粮",
+      "imgUrl":"src/assets/goods/jkzl11.jpg",
+      "oldPrice":"412.20",
+      "newPrice":"300.00",
+      "sales":"191",
+      "goods_id":1110,
+      "age":"幼龄"
+    },
+    {
+      "name":"皇家成年期进口猫湿粮 慕斯肉泥浓汤肉块85g全价主食级",
+      "imgUrl":"src/assets/goods/jkzl12.jpg",
+      "oldPrice":"157.20",
+      "newPrice":"82.00",
+      "sales":"902",
+      "goods_id":1111,
+      "age":"成龄"
+    },
+    {
+      "name":"皇家幼年期进口猫湿粮 三种质地慕斯浓汤肉块啫喱85g*12非零食",
+      "imgUrl":"src/assets/goods/jkzl13.jpg",
+      "oldPrice":"259.20",
+      "newPrice":"141.00",
+      "sales":"800",
+      "goods_id":1112,
+      "age":"幼龄"
+    },
+    {
+      "name":"Serengeti塞伦盖蒂新西兰进口猫粮无谷红肉猫干粮成猫幼猫",
+      "imgUrl":"src/assets/goods/jkzl14.jpg",
+      "oldPrice":"300.20",
+      "newPrice":"168.00",
+      "sales":"98",
+      "goods_id":1113,
+      "age":"幼龄"
+    },
+    {
+      "name":"加拿大进口orijen渴望猫粮六种鱼鸡肉猫粮全期无谷营养",
+      "imgUrl":"src/assets/goods/jkzl15.jpg",
+      "oldPrice":"630.20",
+      "newPrice":"585.00",
+      "sales":"280",
+      "goods_id":1114,
+      "age":"全年龄"
+    },
+    {
+      "name":"Merrick麻利美国进口天然无谷 去骨鸡肉美毛增肥发腮猫粮12磅",
+      "imgUrl":"src/assets/goods/jkzl15.jpg",
+      "oldPrice":"402.20",
+      "newPrice":"328.00",
+      "sales":"78",
+      "goods_id":1115,
+      "age":"成龄"
+    }
+  ],
+  "domesticGoods": [
+    {
+      "name":"海尔仕 香酥牛肉味全犬种成犬粮 10kg",
+      "imgUrl":"src/assets/goods/gczl1.png",
+      "oldPrice":"189.80",
+      "newPrice":"109.00",
+      "sales":"590",
+      "goods_id":1200,
+      "age":"成龄"
+    },
+    {
+      "name":"醇粹Purich 金标无麸系列 大型犬幼犬全价粮 15kg",
+      "imgUrl":"src/assets/goods/gczl2.png",
+      "oldPrice":"510.80",
+      "newPrice":"409.00",
+      "sales":"390",
+      "goods_id":1201,
+      "age":"幼龄"
+    },
+    {
+      "name":"皇家royal canin PR27小型犬成犬专用狗粮2kg",
+      "imgUrl":"src/assets/goods/gczl3.jpg",
+      "oldPrice":"291.80",
+      "newPrice":"178.00",
+      "sales":"420",
+      "goods_id":1202,
+      "age":"成龄"
+    },
+    {
+      "name":"皇家royal canin MIS30小型犬奶糕/怀孕母犬/哺乳母犬1kg",
+      "imgUrl":"src/assets/goods/gczl4.jpg",
+      "oldPrice":"149.80",
+      "newPrice":"83.00",
+      "sales":"1820",
+      "goods_id":1203,
+      "age":"幼龄"
+    },
+    {
+      "name":"伯纳天纯Pure&Natural 添加羊肉燕麦蔓越莓中/大型成犬粮 15kg",
+      "imgUrl":"src/assets/goods/gczl5.jpg",
+      "oldPrice":"670.80",
+      "newPrice":"569.00",
+      "sales":"320",
+      "goods_id":1204,
+      "age":"成龄"
+    },
+    {
+      "name":"海洋之星 三文鱼配方 成犬粮 小颗粒 6kg",
+      "imgUrl":"src/assets/goods/gczl4.jpg",
+      "oldPrice":"510.80",
+      "newPrice":"409.00",
+      "sales":"410",
+      "goods_id":1205,
+      "age":"幼龄"
+    },
+    {
+      "name":"比瑞吉 健康型天然粮 小型犬全价成犬粮 1.5kg",
+      "imgUrl":"src/assets/goods/gczl1.png",
+      "oldPrice":"156.80",
+      "newPrice":"99.00",
+      "sales":"1310",
+      "goods_id":1206,
+      "age":"成龄"
+    },
+    {
+      "name":"醇粹Purich 经典系列 全价大型幼犬粮 15kg",
+      "imgUrl":"src/assets/goods/gczl5.jpg",
+      "oldPrice":"597.80",
+      "newPrice":"435.00",
+      "sales":"310",
+      "goods_id":1207,
+      "age":"幼龄"
+    },
+    {
+      "name":" 国产皇家猫粮F32理想体态成年猫咪",
+      "imgUrl":"src/assets/goods/gczl8.jpg",
+      "oldPrice":"178.80",
+      "newPrice":"105.00",
+      "sales":"122",
+      "goods_id":1208,
+      "age":"成龄"
+    },
+    {
+      "name":" 中鲨营养倍护猫粮国产全价期鱼肉冻干双拼",
+      "imgUrl":"src/assets/goods/gczl9.jpg",
+      "oldPrice":"99.80",
+      "newPrice":"69.00",
+      "sales":"139",
+      "goods_id":1209,
+      "age":"成龄"
+    },
+    {
+      "name":"  国产皇家猫粮k36营养幼猫粮 10kg怀孕母猫",
+      "imgUrl":"src/assets/goods/gczl10.png",
+      "oldPrice":"513.80",
+      "newPrice":"425.00",
+      "sales":"59",
+      "goods_id":1210,
+      "age":"成龄"
+    },
+    {
+      "name":"  猫粮成猫营养增肥发腮网易严选冻干双拼国产十大品牌无谷低敏 ",
+      "imgUrl":"src/assets/goods/gczl11.jpg",
+      "oldPrice":"595.80",
+      "newPrice":"464.00",
+      "sales":"89",
+      "goods_id":1211,
+      "age":"全年龄"
+    },
+    {
+      "name":"  萌宠有约 国产江小傲猫粮 成猫幼猫无谷全价鲜肉粮增肥发腮猫 ",
+      "imgUrl":"src/assets/goods/gczl12.jpg",
+      "oldPrice":"120.80",
+      "newPrice":"78.00",
+      "sales":"919",
+      "goods_id":1212,
+      "age":"幼龄"
+    },
+    {
+      "name":" 国产鲜猫粮5斤干粮试吃装幼猫专用营养粮10斤优惠装全猫通用增肥发腮成猫离乳期",
+      "imgUrl":"src/assets/goods/gczl13.jpg",
+      "oldPrice":"60.80",
+      "newPrice":"36.00",
+      "sales":"1919",
+      "goods_id":1213,
+      "age":"全年龄"
+    },
+    {
+      "name":"土猫 国产妙多乐室内成猫粮10kg 维护泌尿道健康天然猫咪",
+      "imgUrl":"src/assets/goods/gczl14.png",
+      "oldPrice":"315.80",
+      "newPrice":"265.00",
+      "sales":"419",
+      "goods_id":1214,
+      "age":"成龄"
+    },
+    {
+      "name":" 猫粮5斤装成猫营养国产全期粮英短布偶猫咪通用增肥发腮",
+      "imgUrl":"src/assets/goods/gczl15.jpg",
+      "oldPrice":"55.80",
+      "newPrice":"39.00",
+      "sales":"1319",
+      "goods_id":1215,
+      "age":"全龄"
+    }
+  ]
+}

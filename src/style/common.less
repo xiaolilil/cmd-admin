@@ -1,0 +1,33 @@
+@basic-color: #74BE5F;
+
+
+
+.center {
+  margin: auto;
+}
+
+.out {
+  outline: 2px solid red;
+}
+
+.out2 {
+  outline: 2px solid blue;
+}
+
+.out3 {
+  outline: 2px solid magenta;
+}
+
+.flex(@just: space-between, @align: center) {
+  display: flex;
+  justify-content: @just;
+  align-items: @align;
+}
+
+.flex2(@main: row, @just: space-between, @align: space-between) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: @main;
+  justify-content: @just;
+  align-content: @align;
+}

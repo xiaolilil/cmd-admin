@@ -1,0 +1,34 @@
+{
+  "meatSnacks":[
+    {
+      "name":"海尔仕 香酥牛肉味全犬种成犬粮 10kg",
+      "imgUrl":"src/assets/goods/gczl1.png",
+      "oldPrice":"189.80",
+      "newPrice":"109.00",
+      "sales":"@number()",
+      "goods_id":1300,
+      "age":"成龄"
+    },
+    {
+      "name":"海尔仕 香酥牛肉味全犬种成犬粮 10kg",
+      "imgUrl":"src/assets/goods/gczl1.png",
+      "oldPrice":"189.80",
+      "newPrice":"109.00",
+      "sales":"@number()",
+      "goods_id":1300,
+      "age":"成龄"
+    }
+  ],
+  "canSnacks":[
+    {
+      "name":"海尔仕 香酥牛肉味全犬种成犬粮 10kg",
+      "imgUrl":"src/assets/goods/gczl1.png",
+      "oldPrice":"189.80",
+      "newPrice":"109.00",
+      "sales":"590",
+      "goods_id":1300,
+      "age":"成龄"
+    }
+
+  ]
+}
