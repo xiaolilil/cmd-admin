@@ -42,7 +42,7 @@
 // mock 请求数据
 // import { loginApi } from '@/apis/user.js'
 // @ts-ignore  node 请求数据
-import { loginApi } from '@/apis/users.js'
+import { loginApi } from '@/api/user.js'
 import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import localCache from '@/utils/cache'

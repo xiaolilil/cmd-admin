@@ -2,6 +2,7 @@ import foodStuff from './data/foodStuff.json'
 import snacks from './data/snacks.json'
 const Mock = require('mockjs');
 
+// 肉食
 const meatSnacksImgsList = [
   'src/assets/goods/rzls0.jpg',
   'src/assets/goods/rzls1.jpg',
@@ -20,6 +21,7 @@ const meatSnacksImgsList = [
   'src/assets/goods/rzls14.jpg',
   'src/assets/goods/rzls15.jpg',
 ]
+// 零食
 const canSnacksImgsList = [
   'src/assets/goods/gtls1.jpg',
   'src/assets/goods/gtls2.jpg',
@@ -38,7 +40,7 @@ const canSnacksImgsList = [
   'src/assets/goods/gtls15.jpg',
   'src/assets/goods/gtls16.jpg',
 ]
-
+// 玩具
 const toysImgsList = [
   'src/assets/goods/cwwj0.jpg',
   'src/assets/goods/cwwj1.jpg',
@@ -57,7 +59,7 @@ const toysImgsList = [
   'src/assets/goods/cwwj14.jpg',
   'src/assets/goods/cwwj15.jpg',
 ]
-
+// 清洁
 const cleanImgsList = [
   'src/assets/goods/cwqj1.jpg',
   'src/assets/goods/cwqj2.jpg',
@@ -76,6 +78,7 @@ const cleanImgsList = [
   'src/assets/goods/cwqj15.jpg',
   'src/assets/goods/cwqj16.jpg',
 ]
+// 服饰
 const clothesImgsList = [
   'src/assets/goods/cwfs1.jpg',
   'src/assets/goods/cwfs2.jpg',
@@ -94,6 +97,7 @@ const clothesImgsList = [
   'src/assets/goods/cwfs15.jpg',
   'src/assets/goods/cwfs16.jpg',
 ]
+// 洗澡
 const washImgsList = [
   'src/assets/goods/cwxh1.jpg',
   'src/assets/goods/cwxh2.jpg',
@@ -112,6 +116,7 @@ const washImgsList = [
   'src/assets/goods/cwxh15.jpg',
   'src/assets/goods/cwxh16.jpg',
 ]
+// 梳理
 const combImgsList = [
   'src/assets/goods/sj1.jpg',
   'src/assets/goods/sj2.jpg',

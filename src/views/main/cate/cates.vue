@@ -14,6 +14,7 @@
       title="宠物主粮"
       :types="['进口主粮', '国产主粮']"
       :list="goodsStuffGoods"
+      poster="src/assets/goods/cwzl0.jpg"
     ></goods-info>
 
     <!-- 商品信息模块  零食 -->
@@ -21,13 +22,15 @@
       title="宠物零食"
       :types="['肉质零食', '罐头湿粮']"
       :list="goodsSnacks"
+      poster="src/assets/goods/rzls0.jpg"
     ></goods-info>
 
     <!-- 商品信息模块  玩具 -->
     <goods-info
       title="宠物玩具"
-      :types="['百样玩具']"
+      :types="['百货玩具']"
       :list="goodsToys"
+      poster="src/assets/goods/cwwj0.jpg"
     ></goods-info>
 
     <!-- 商品信息模块  玩具 -->
@@ -35,6 +38,7 @@
       title="宠物服饰"
       :types="['可爱服饰']"
       :list="goodsClothes"
+      poster="src/assets/goods/cwfs0.jpg"
     ></goods-info>
   </div>
 </template>
@@ -51,7 +55,7 @@ import {
   getGoodsSnacksApi,
   getGoodsToysApi,
   getGoodsClothesApi,
-} from '@/apis/home.js'
+} from '@/api/home.js'
 
 // import { getCurrentInstance } from 'vue'
 // 定义轮播图列表变量

@@ -59,7 +59,7 @@ import {
   getCateCleanApi,
   getCateWashApi,
   getCateClothesApi,
-} from '@/apis/home.js'
+} from '@/api/home.js'
 import { ref } from 'vue'
 import CateList from './cate-list.vue'
 
@@ -67,6 +67,9 @@ import CateList from './cate-list.vue'
 const foodStuffList = ref<any[]>([])
 async function getCateFoodStuff() {
   const { data: res } = await getCateFoodStuffApi()
+  res.forEach((i) => {
+    i.classification = i.classification.split(',')
+  })
   foodStuffList.value = res
 }
 getCateFoodStuff()
@@ -75,6 +78,9 @@ getCateFoodStuff()
 const snacksList = ref<any[]>([])
 async function getCateSnacks() {
   const { data: res } = await getCateSnacksApi()
+  res.forEach((i) => {
+    i.classification = i.classification.split(',')
+  })
   snacksList.value = res
 }
 getCateSnacks()
@@ -83,6 +89,9 @@ getCateSnacks()
 const toysList = ref<any[]>([])
 async function getCateToys() {
   const { data: res } = await getCateToysApi()
+  res.forEach((i) => {
+    i.classification = i.classification.split(',')
+  })
   toysList.value = res
 }
 getCateToys()
@@ -91,6 +100,9 @@ getCateToys()
 const cleanList = ref<any[]>([])
 async function getCateClean() {
   const { data: res } = await getCateCleanApi()
+  res.forEach((i) => {
+    i.classification = i.classification.split(',')
+  })
   cleanList.value = res
 }
 getCateClean()
@@ -99,6 +111,9 @@ getCateClean()
 const washList = ref<any[]>([])
 async function getCateWash() {
   const { data: res } = await getCateWashApi()
+  res.forEach((i) => {
+    i.classification = i.classification.split(',')
+  })
   washList.value = res
 }
 getCateWash()
@@ -107,6 +122,9 @@ getCateWash()
 const clothesList = ref<any[]>([])
 async function getCateClothes() {
   const { data: res } = await getCateClothesApi()
+  res.forEach((i) => {
+    i.classification = i.classification.split(',')
+  })
   clothesList.value = res
 }
 getCateClothes()

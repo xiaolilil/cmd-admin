@@ -17,7 +17,7 @@
     <!-- 商品列表 -->
     <div class="goods-list" v-if="list.length">
       <div class="goods-list-l">
-        <img :src="list[0].imgUrl" alt="" />
+        <img :src="poster" alt="" />
       </div>
       <ul class="goods-list-r">
         <li
@@ -26,9 +26,9 @@
           :key="i"
           @click="toGoodsInfo(v)"
         >
-          <div class="img"><img :src="v.imgUrl" alt="" /></div>
-          <p class="name">{{ v.name }}</p>
-          <span class="price">￥{{ v.newPrice }}</span>
+          <div class="img"><img :src="v.commodityImgUrl" alt="" /></div>
+          <p class="name">{{ v.commodityName }}</p>
+          <span class="price">￥{{ v.commodityNewPrice }}</span>
         </li>
       </ul>
     </div>
@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import { ref, watch } from 'vue'
+import { ref, watch, reactive } from 'vue'
 import LocalCache from '@/utils/cache'
 import usePinia from '@/store'
 
@@ -48,21 +48,25 @@ const props = withDefaults(
     title: string
     types: string[]
     list: any[]
+    poster: string
   }>(),
   {
-    title: '',
-    types: () => [],
     list: () => [],
   },
 )
 
+const data1 = ref<any[]>([])
+const data2 = ref<any[]>([])
 // 当前展示商品列表数组
 const currGoodsList = ref<any[]>([])
 // 监听props.list的变化
 watch(
   () => props.list,
   (n) => {
-    currGoodsList.value = n[1]?.data
+    // currGoodsList.value = n[1]?.data
+    data1.value = props.list.slice(0, 8)
+    data2.value = props.list.slice(8, 16)
+    currGoodsList.value = data1.value
   },
   { immediate: true },
 )
@@ -73,7 +77,24 @@ const currTypes = ref(props.types[0])
 const changeCurrTypes = (type: string, index: number) => {
   currTypes.value = type
   // 鼠标切换类型， 对应商品数组列表进行切换 重新赋值
-  currGoodsList.value = props.list[index + 1]?.data
+  // currGoodsList.value = props.list[index + 1]?.data
+  switch (type) {
+    case '进口主粮':
+      currGoodsList.value = data1.value
+      break
+    case '国产主粮':
+      currGoodsList.value = data2.value
+      break
+    case '肉质零食':
+      currGoodsList.value = data1.value
+      break
+    case '罐头湿粮':
+      currGoodsList.value = data2.value
+      break
+
+    default:
+      break
+  }
 }
 
 // 跳转到商品详情页

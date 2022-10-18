@@ -5,8 +5,9 @@
         <span>{{ i.type }}</span>
         <img :src="i.imgUrl" alt="" />
       </div>
-      <ul class="nav-list" v-for="child in i.children" :key="child.id">
-        <li @click="toClassify(i.cate_id, i.type)">{{ child.type }}</li>
+      <!-- <ul class="nav-list" v-for="child in i.children" :key="child.id"> -->
+      <ul class="nav-list" v-for="child in i.classification" :key="child">
+        <li @click="toClassify(i.cate_id, i.type)">{{ child }}</li>
       </ul>
     </li>
   </ul>

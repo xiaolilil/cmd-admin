@@ -179,7 +179,7 @@
 // @ts-ignore
 // import { registerApi } from '@/apis/user.js'
 // @ts-ignore
-import { registerApi } from '@/apis/users.js'
+import { registerApi } from '@/api/user.js'
 import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import { rules } from '@/config/form-rules'
