@@ -3,14 +3,14 @@
     <ul class="goods-item">
       <li v-for="(v, i) in list" :key="i" @click="toDetails(v)">
         <div class="img">
-          <img :src="v.imgUrl" alt="" />
+          <img :src="v.commodityImgUrl" alt="" />
         </div>
-        <p class="name"><span>活动</span> {{ v.name }}</p>
+        <p class="name"><span>活动</span> {{ v.commodityName }}</p>
         <p class="price">
-          <span class="new">￥{{ v.newPrice }}</span>
-          <span class="old">￥{{ v.oldPrice }}</span>
+          <span class="new">￥{{ v.commodityNewPrice }}</span>
+          <span class="old">￥{{ v.commodityOldPrice }}</span>
         </p>
-        <p class="sale">月销量 {{ v.sales }}</p>
+        <p class="sale">月销量 {{ v.commoditySales }}</p>
       </li>
     </ul>
   </div>

@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts" setup>
+// 接收父组件传递的数据
 const props = withDefaults(
   defineProps<{
     swiperList: any[]
@@ -23,6 +24,8 @@ const props = withDefaults(
     swiperList: () => [],
   },
 )
+
+// 子组件发送数据给父组件
 const emit = defineEmits(['currItem'])
 
 const changeSwiper = (i: any) => {

@@ -261,26 +261,32 @@ export default [
 
       let detailsImg = []
       let evaluate = []
+      // 食物
       if (999 < Number(goodsInfo.goods_id) && Number(goodsInfo.goods_id) < 1499) {
         detailsImg = food
         evaluate = foodEvaluate
       }
+      // 玩具
       if (1499 < Number(goodsInfo.goods_id) && Number(goodsInfo.goods_id) < 1599) {
         detailsImg = toys
         evaluate = toysEvaluate
       }
+      // 服饰
       if (1599 < Number(goodsInfo.goods_id) && Number(goodsInfo.goods_id) < 1699) {
         detailsImg = clothes
         evaluate = clothesEvaluate
       }
+      // 清洁
       if (1699 < Number(goodsInfo.goods_id) && Number(goodsInfo.goods_id) < 1799) {
         detailsImg = clean
         evaluate = cleanEvaluate
       }
+      // 洗护
       if (1799 < Number(goodsInfo.goods_id) && Number(goodsInfo.goods_id) < 1820) {
         detailsImg = wash
         evaluate = washEvaluate
       }
+      // 梳理
       if (1819 < Number(goodsInfo.goods_id) && Number(goodsInfo.goods_id) < 1850) {
         detailsImg = comb
         evaluate = combEvaluate
@@ -295,23 +301,25 @@ export default [
         'sales': goodsInfo.sales,
         'age': goodsInfo.age,
         'id|10000-20000': 10123,
+
+        // 商品详情区域展示图片
         'details': getRandomArrayElements(detailsImg, 3),
-        'goodsData': {
-          'place': '@city',
-          'origin': '@city',
-          'donation|0.3-2': 0.35,
-          'donationTotal|100-10000': 137,
-          'brand': '@title',
+        'goodsData': { // 商品详情区域数据
+          'place': '@city', // 生产地
+          'origin': '@city', // 起源地
+          'donation|0.3-2': 0.35, // 捐赠
+          'donationTotal|100-10000': 137, // 总捐赠
+          'brand': '@title', // 品牌
         },
         'user|16': [{
-          'evaluate|1': evaluate,
-          'nickname': '@cname',
-          'level|1': [1, 2, 3, 4, 5, 6],
-          'date': '@datetime',
-          'rate|1': [3, 4, 5],
-          'view|50-5000': 299,
-          "ip": '@province',
-          'avatar|1': ['src/assets/goods/avatar1.jpg',
+          'evaluate|1': evaluate, // 评论
+          'nickname': '@cname', // 昵称
+          'level|1': [1, 2, 3, 4, 5, 6], // 会员等级
+          'date': '@datetime', // 评论日期
+          'rate|1': [3, 4, 5], // 评分星星
+          'view|50-5000': 299, // 浏览人数
+          "ip": '@province', // IP地址
+          'avatar|1': ['src/assets/goods/avatar1.jpg', // 用户头像
             'src/assets/goods/avatar2.png',
             'src/assets/goods/avatar3.jpg',
             'src/assets/goods/avatar4.jpg',]

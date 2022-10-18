@@ -7,8 +7,7 @@
     <!-- 二级路由切换  -->
     <router-view></router-view>
     <!-- 底部 -->
-    <head-footer></head-footer>
-
+    <Footer></Footer>
     <!-- 回到顶部 -->
     <back-top></back-top>
   </div>
@@ -17,7 +16,7 @@
 <script lang="ts" setup>
 import NavTop from '@/components/nav-top/index.vue'
 import Header from '@/components/header/index.vue'
-import HeadFooter from '@/layout/footer.vue'
+import Footer from '@/layout/footer.vue'
 import BackTop from '@/components/backTop/back-top.vue'
 </script>
 

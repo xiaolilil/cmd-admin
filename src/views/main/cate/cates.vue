@@ -9,7 +9,7 @@
       <Introduce></Introduce>
     </div>
 
-    <!-- 商品信息模块  主粮 -->
+    <!-- 推荐商品信息模块  主粮 -->
     <goods-info
       title="宠物主粮"
       :types="['进口主粮', '国产主粮']"
@@ -17,7 +17,7 @@
       poster="src/assets/goods/cwzl0.jpg"
     ></goods-info>
 
-    <!-- 商品信息模块  零食 -->
+    <!-- 推荐商品信息模块  零食 -->
     <goods-info
       title="宠物零食"
       :types="['肉质零食', '罐头湿粮']"
@@ -25,7 +25,7 @@
       poster="src/assets/goods/rzls0.jpg"
     ></goods-info>
 
-    <!-- 商品信息模块  玩具 -->
+    <!-- 推荐商品信息模块  玩具 -->
     <goods-info
       title="宠物玩具"
       :types="['百货玩具']"
@@ -33,7 +33,7 @@
       poster="src/assets/goods/cwwj0.jpg"
     ></goods-info>
 
-    <!-- 商品信息模块  玩具 -->
+    <!-- 推荐商品信息模块  玩具 -->
     <goods-info
       title="宠物服饰"
       :types="['可爱服饰']"
@@ -48,16 +48,10 @@ import Swiper from '@/components/swiper/index.vue'
 import Category from './components/category.vue'
 import Introduce from './components/introduce.vue'
 import GoodsInfo from '@/components/goods-info/index.vue'
-import { onMounted, ref, ComponentPublicInstance, watch } from 'vue'
-import {
-  getSwiperListApi,
-  getGoodsFoodStuffApi,
-  getGoodsSnacksApi,
-  getGoodsToysApi,
-  getGoodsClothesApi,
-} from '@/api/home.js'
+import { onMounted, ref, watch } from 'vue'
 
-// import { getCurrentInstance } from 'vue'
+import { getSwiperListApi, getGoodsFoodStuffApi } from '@/api/home.js'
+
 // 定义轮播图列表变量
 const swiperList = ref<{ url: string }[]>([])
 // 获取轮播图列表
@@ -101,7 +95,9 @@ watch(
 // 获取商品 宠物主粮
 const goodsStuffGoods = ref([])
 async function getGoodStuffGoods() {
-  const { data: res } = await getGoodsFoodStuffApi()
+  const { data: res } = await getGoodsFoodStuffApi({
+    arr: JSON.stringify([1, 2]),
+  })
   goodsStuffGoods.value = res
 }
 getGoodStuffGoods()
@@ -109,7 +105,9 @@ getGoodStuffGoods()
 // 获取商品 宠物零食
 const goodsSnacks = ref([])
 async function getGoodSnacks() {
-  const { data: res } = await getGoodsSnacksApi()
+  const { data: res } = await getGoodsFoodStuffApi({
+    arr: JSON.stringify([3, 4]),
+  })
   goodsSnacks.value = res
 }
 getGoodSnacks()
@@ -117,15 +115,17 @@ getGoodSnacks()
 // 获取商品 宠物玩具
 const goodsToys = ref([])
 async function getGoodsToys() {
-  const { data: res } = await getGoodsToysApi()
+  const { data: res } = await getGoodsFoodStuffApi({ arr: JSON.stringify([5]) })
   goodsToys.value = res
 }
 getGoodsToys()
 
-// 获取商品 宠物零食
+// 获取商品 宠物服饰
 const goodsClothes = ref([])
 async function getGoodsClothes() {
-  const { data: res } = await getGoodsClothesApi()
+  const { data: res } = await getGoodsFoodStuffApi({
+    arr: JSON.stringify([10]),
+  })
   goodsClothes.value = res
 }
 getGoodsClothes()

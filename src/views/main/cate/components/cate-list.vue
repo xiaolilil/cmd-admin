@@ -7,7 +7,8 @@
       </div>
       <!-- <ul class="nav-list" v-for="child in i.children" :key="child.id"> -->
       <ul class="nav-list" v-for="child in i.classification" :key="child">
-        <li @click="toClassify(i.cate_id, i.type)">{{ child }}</li>
+        <!-- <li @click="toClassify(i.cate_id, i.type)">{{ child }}</li> -->
+        <li @click="toClassify(i.id, i.type)">{{ child }}</li>
       </ul>
     </li>
   </ul>
@@ -31,17 +32,15 @@ const props = withDefaults(
 
 // 跳转到商品分类
 const router = useRouter()
-const toClassify = (cate_id: number, type: string) => {
+const toClassify = (id: number, type: string) => {
   goods.setGoodsInfo({
     title: props.list[0].title,
     type: [props.list[0].type, props.list[1]?.type],
   })
   router.push({
     path: '/home/classifies',
-    // 路由传参，把分类ID和类型传过去
     query: {
-      cate_id,
-      // type,
+      id,
     },
   })
 }

@@ -7,12 +7,10 @@
         <div class="cate-box2">
           <div>
             <p>宠物主粮</p>
-
             <cate-list :list="foodStuffList"></cate-list>
           </div>
           <div>
             <p>宠物零食</p>
-
             <cate-list :list="snacksList"></cate-list>
           </div>
         </div>
@@ -52,21 +50,14 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  getCateFoodStuffApi,
-  getCateSnacksApi,
-  getCateToysApi,
-  getCateCleanApi,
-  getCateWashApi,
-  getCateClothesApi,
-} from '@/api/home.js'
+import { getHomeCategoryApi } from '@/api/home.js'
 import { ref } from 'vue'
 import CateList from './cate-list.vue'
 
 // 获取分类主粮
 const foodStuffList = ref<any[]>([])
 async function getCateFoodStuff() {
-  const { data: res } = await getCateFoodStuffApi()
+  const { data: res } = await getHomeCategoryApi({ str: '宠物主粮' })
   res.forEach((i) => {
     i.classification = i.classification.split(',')
   })
@@ -77,7 +68,7 @@ getCateFoodStuff()
 // 获取分类零食
 const snacksList = ref<any[]>([])
 async function getCateSnacks() {
-  const { data: res } = await getCateSnacksApi()
+  const { data: res } = await getHomeCategoryApi({ str: '宠物零食' })
   res.forEach((i) => {
     i.classification = i.classification.split(',')
   })
@@ -88,7 +79,7 @@ getCateSnacks()
 // 获取分类玩具
 const toysList = ref<any[]>([])
 async function getCateToys() {
-  const { data: res } = await getCateToysApi()
+  const { data: res } = await getHomeCategoryApi({ str: '宠物玩具' })
   res.forEach((i) => {
     i.classification = i.classification.split(',')
   })
@@ -99,7 +90,7 @@ getCateToys()
 // 获取分类清洁
 const cleanList = ref<any[]>([])
 async function getCateClean() {
-  const { data: res } = await getCateCleanApi()
+  const { data: res } = await getHomeCategoryApi({ str: '宠物清洁' })
   res.forEach((i) => {
     i.classification = i.classification.split(',')
   })
@@ -110,7 +101,7 @@ getCateClean()
 // 获取分类洗护
 const washList = ref<any[]>([])
 async function getCateWash() {
-  const { data: res } = await getCateWashApi()
+  const { data: res } = await getHomeCategoryApi({ str: '宠物洗护' })
   res.forEach((i) => {
     i.classification = i.classification.split(',')
   })
@@ -121,7 +112,7 @@ getCateWash()
 // 获取分类服饰
 const clothesList = ref<any[]>([])
 async function getCateClothes() {
-  const { data: res } = await getCateClothesApi()
+  const { data: res } = await getHomeCategoryApi({ str: '宠物服饰' })
   res.forEach((i) => {
     i.classification = i.classification.split(',')
   })

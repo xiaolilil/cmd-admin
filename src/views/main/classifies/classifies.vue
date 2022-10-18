@@ -42,7 +42,8 @@
 
 <script lang="ts" setup>
 // @ts-ignore
-import { getClassifyApi } from '@/apis/classify.js'
+// import { getClassifyApi } from '@/apis/classify.js'
+import { getClassifyGoodsApi } from '@/api/classify.js'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, reactive, computed } from 'vue'
 import GoodsList from '@/components/goods-list/goods-list.vue'
@@ -54,51 +55,81 @@ const router = useRouter()
 const route = useRoute()
 const currAge = ref('') // 当前适龄阶段
 const currType = ref('') // 当前展示的类型商品
+const currTypes = ref(0)
 
 const cateInfo = reactive({
-  cate_id: route.query?.cate_id,
+  id: route.query?.id,
   title: route.query?.type,
 })
 
 // 计算商品ID对应的分类
 const cateTypes = computed(() => {
   let data: any[] = []
-  switch (cateInfo.cate_id) {
-    case '1000':
+  switch (cateInfo.id) {
+    case '1':
       data = [
-        { type: 'importGoods', label: '进口主粮' },
-        { type: 'domesticGoods', label: '国产主粮' },
+        { type: 'importGoods', label: '进口主粮', id: 1 },
+        { type: 'domesticGoods', label: '国产主粮', id: 2 },
       ]
       currType.value = 'importGoods'
       break
-    case '1300':
+    case '2':
       data = [
-        { type: 'meatSnacks', label: '肉质零食' },
-        { type: 'canSnacks', label: '罐头湿粮' },
+        { type: 'importGoods', label: '进口主粮', id: 1 },
+        { type: 'domesticGoods', label: '国产主粮', id: 2 },
+      ]
+      currType.value = 'importGoods'
+      break
+    case '3':
+      data = [
+        { type: 'meatSnacks', label: '肉质零食', id: 3 },
+        { type: 'canSnacks', label: '罐头湿粮', id: 4 },
       ]
       currType.value = 'meatSnacks'
       break
-    case '1500':
+    case '4':
       data = [
-        { type: 'tooth', label: '磨牙玩具' },
-        { type: 'tour', label: '巡回玩具' },
+        { type: 'meatSnacks', label: '肉质零食', id: 3 },
+        { type: 'canSnacks', label: '罐头湿粮', id: 4 },
+      ]
+      currType.value = 'meatSnacks'
+      break
+    case '5':
+      data = [
+        { type: 'tooth', label: '磨牙玩具', id: 5 },
+        { type: 'tour', label: '巡回玩具', id: 6 },
       ]
       currType.value = 'tooth'
       break
-    case '1600':
-      data = [{ type: 'clothes', label: '宠物服饰' }]
-      currType.value = 'clothes'
+    case '6':
+      data = [
+        { type: 'tooth', label: '磨牙玩具', id: 5 },
+        { type: 'tour', label: '巡回玩具', id: 6 },
+      ]
+      currType.value = 'tooth'
       break
-    case '1700':
-      data = [{ type: 'clean', label: '宠物清洁' }]
+
+    case '7':
+      data = [{ type: 'clean', label: '宠物清洁', id: 7 }]
       currType.value = 'clean'
       break
-    case '1800':
+    case '8':
       data = [
-        { type: 'wash', label: '日常洗护' },
-        { type: 'comb', label: '梳剪工具' },
+        { type: 'wash', label: '日常洗护', id: 8 },
+        { type: 'comb', label: '梳剪工具', id: 9 },
       ]
       currType.value = 'wash'
+      break
+    case '9':
+      data = [
+        { type: 'wash', label: '日常洗护', id: 8 },
+        { type: 'comb', label: '梳剪工具', id: 9 },
+      ]
+      currType.value = 'wash'
+      break
+    case '10':
+      data = [{ type: 'clothes', label: '宠物服饰', id: 10 }]
+      currType.value = 'clothes'
       break
     default:
       break
@@ -109,18 +140,24 @@ const cateTypes = computed(() => {
 // 获取商品数据
 const goodsList = ref<any[]>([])
 const newGoodsList = ref<any[]>([])
-async function getClassifyGoods() {
-  const { data: res } = await getClassifyApi(route.query.cate_id)
+async function getClassifyGoods(id) {
+  const { data: res } = await getClassifyGoodsApi({
+    arr: JSON.stringify([id]),
+  })
   goodsList.value = res
-  newGoodsList.value = res[currType.value]
+
+  newGoodsList.value = res
 }
-getClassifyGoods()
+getClassifyGoods(route.query.id)
 
 // 当前选择的分类 商品
 const currIndex = ref(0)
 const handleCurrType = (obj: any, index: number) => {
+  getClassifyGoods(obj.id)
   currType.value = obj.type
   currIndex.value = index
+  console.log('currIndex.value', currIndex.value)
+  currTypes.value = obj.id
   newGoodsList.value = goodsList.value[obj.type]
   // 每次点击分类， 把当前年龄情况
   currAge.value = ''
@@ -129,8 +166,12 @@ const handleCurrType = (obj: any, index: number) => {
 // 选择当前的年龄 筛选出对应年龄的数据
 const handleAge = (age: string) => {
   currAge.value = age
-  newGoodsList.value = goodsList.value[currType.value].filter((i: any) => {
-    return i.age == currAge.value
+  // newGoodsList.value = goodsList.value[currType.value].filter((i: any) => {
+  //   return i.age == currAge.value
+  // })
+
+  newGoodsList.value = goodsList.value.filter((i: any) => {
+    return i.commodityAge == currAge.value
   })
 }
 </script>

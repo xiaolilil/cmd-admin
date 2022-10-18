@@ -19,9 +19,9 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     // viteMockServe({
-    // mockPath: 'mock', // 设置模拟.ts 文件的存储文件夹，默认为根目录下的mock文件夹
-    // supportTs: false, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件。
-    // localEnabled: true, // 设置是否启用本地 xxx.ts 文件，不要在生产环境中打开它.设置为 false 将禁用 mock 功能
+    //   mockPath: 'mock', // 设置模拟.ts 文件的存储文件夹，默认为根目录下的mock文件夹
+    //   supportTs: false, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件。
+    //   localEnabled: true, // 设置是否启用本地 xxx.ts 文件，不要在生产环境中打开它.设置为 false 将禁用 mock 功能
     // }),
   ],
   resolve: {
@@ -37,7 +37,7 @@ export default defineConfig({
     // open: true, // 在服务器启动时自动在浏览器中打开应用程序
     proxy: {
       '/api': {
-        target: 'http://z77wmz.natappfree.cc', //代理接口
+        target: 'http://usgfeg.natappfree.cc', //代理接口
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

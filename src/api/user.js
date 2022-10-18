@@ -1,6 +1,10 @@
 import service from '../utils/request'
 
-// 登录
+/**
+ * @description: 登录
+ * @param {*} data {petName:'', petPwd:''}
+ * @return {*} 
+ */
 export function loginApi(data) {
   return service({
     url: 'users/login',
@@ -9,7 +13,11 @@ export function loginApi(data) {
   })
 }
 
-// 注册
+/**
+ * @description: 注册
+ * @param {*} data {petName:'', petPwd:''}
+ * @return {*}
+ */
 export function registerApi(data) {
   return service({
     url: 'users/register',
