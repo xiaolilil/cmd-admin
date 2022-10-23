@@ -143,7 +143,7 @@ const { totalPrice } = useCountCartPrice()
 
 const formRef = ref<InstanceType<typeof ElForm>>()
 //验证手机号的规则;
-var checkMobile = (rule, value, cb) => {
+var checkMobile = (rule: any, value: any, cb: any) => {
   // 验证手机号的正则表达式
   const regMobile =
     /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
@@ -177,7 +177,8 @@ const options = cityData
 // 地址表单
 let form = reactive({
   name: '',
-  address: <any[]>[],
+  // address: <any[]>[],
+  address: [],
   detailsAddress: '',
   mobile: '',
   isDefault: true,

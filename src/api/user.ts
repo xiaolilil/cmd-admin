@@ -1,13 +1,14 @@
-import service from '../utils/request'
+import service from '@/utils/request'
+import { IInitTypes } from '@/types/apis'
 
 /**
  * @description: 登录
  * @param {*} data {petName:'', petPwd:''}
- * @return {*} 
+ * @return {*}
  */
-export function loginApi(data) {
+export function loginApi(data: IInitTypes) {
   return service({
-    url: 'users/login',
+    url: '/users/login',
     method: 'post',
     data: data,
   })
@@ -18,9 +19,9 @@ export function loginApi(data) {
  * @param {*} data {petName:'', petPwd:''}
  * @return {*}
  */
-export function registerApi(data) {
+export function registerApi(data: IInitTypes) {
   return service({
-    url: 'users/register',
+    url: '/users/register',
     method: 'post',
     data: data,
   })

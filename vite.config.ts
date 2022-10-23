@@ -35,12 +35,12 @@ export default defineConfig({
   server: {
     // cors: true, // 默认启用并允许任何源
     // open: true, // 在服务器启动时自动在浏览器中打开应用程序
-    proxy: {
-      '/api': {
-        target: 'http://usgfeg.natappfree.cc', //代理接口
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://2mk2g2.natappfree.cc', //代理接口
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    // },
   },
 })

@@ -35,7 +35,7 @@
         >
       </div>
     </div>
-    <!-- 商品区域 -->
+    <!-- 商品分类区域 -->
     <goods-list :list="newGoodsList"></goods-list>
   </div>
 </template>
@@ -140,12 +140,13 @@ const cateTypes = computed(() => {
 // 获取商品数据
 const goodsList = ref<any[]>([])
 const newGoodsList = ref<any[]>([])
-async function getClassifyGoods(id) {
+async function getClassifyGoods(id: any) {
   const { data: res } = await getClassifyGoodsApi({
     arr: JSON.stringify([id]),
   })
+  // 商品分类原始数据
   goodsList.value = res
-
+  // 传递给子组件的数据
   newGoodsList.value = res
 }
 getClassifyGoods(route.query.id)
@@ -156,7 +157,7 @@ const handleCurrType = (obj: any, index: number) => {
   getClassifyGoods(obj.id)
   currType.value = obj.type
   currIndex.value = index
-  console.log('currIndex.value', currIndex.value)
+
   currTypes.value = obj.id
   newGoodsList.value = goodsList.value[obj.type]
   // 每次点击分类， 把当前年龄情况

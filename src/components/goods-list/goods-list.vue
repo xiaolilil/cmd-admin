@@ -3,7 +3,7 @@
     <ul class="goods-item">
       <li v-for="(v, i) in list" :key="i" @click="toDetails(v)">
         <div class="img">
-          <img :src="v.commodityImgUrl" alt="" />
+          <img :src="v.commodityImgUrl" :lazy="true" alt="" />
         </div>
         <p class="name"><span>活动</span> {{ v.commodityName }}</p>
         <p class="price">
@@ -18,8 +18,6 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import LocalCache from '@/utils/cache'
-import usePinia from '@/store'
 
 const props = withDefaults(
   defineProps<{
@@ -30,14 +28,12 @@ const props = withDefaults(
   },
 )
 
-const { goods } = usePinia()
 const router = useRouter()
+// 去商品详情页 把商品ID传递过去
 const toDetails = (obj: any) => {
-  LocalCache.setCache('pet-goods', obj)
-  goods.setGoodsInfo(obj)
   router.push({
     path: '/home/goodsDetails',
-    query: { goods_id: obj.goods_id },
+    query: { id: obj.id },
   })
 }
 </script>

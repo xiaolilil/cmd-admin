@@ -1,5 +1,5 @@
-
 import axios from 'axios'
+
 
 const service = axios.create({
   baseURL: 'api',
@@ -10,10 +10,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     config.headers.ContentType = "application/json;charset=utf-8";
-
     const token = localStorage.getItem('pet-token')
     if (token) {
-      config.headers.Authorization = token
+      config.headers.token = JSON.parse(token)
     }
 
     return config

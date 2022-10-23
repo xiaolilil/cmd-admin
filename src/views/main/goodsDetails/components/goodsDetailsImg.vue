@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-    <div class="img" v-for="(v, i) in detailsData" :key="i">
-      <img :src="v" alt="" />
+    <div class="img" v-for="(v, i) in goodsData.details" :key="i">
+      <img :src="v" :lazy="true" alt="" />
     </div>
   </div>
 </template>
@@ -37,7 +37,6 @@
 import { ref } from 'vue'
 const props = withDefaults(
   defineProps<{
-    detailsData: any[]
     goodsData: any
   }>(),
   {

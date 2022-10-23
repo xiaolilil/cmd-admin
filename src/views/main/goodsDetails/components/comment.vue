@@ -3,26 +3,26 @@
     <div class="myEvaluate">
       <div class="rate">
         <span>打分</span>
-        <el-rate v-model="myEvaluate.rate" :colors="colors" />
+        <el-rate v-model="myComment.rate" :colors="colors" />
       </div>
       <textarea
-        v-model="myEvaluate.evaluate"
+        v-model="myComment.commentContent"
         name=""
         id=""
         cols="80"
         rows="3"
       ></textarea>
-      <button @click="evaluate">我要评价</button>
+      <button @click="comment">我要评价</button>
     </div>
-    <ul class="list" v-for="(v, i) in newData" :key="i">
+    <ul class="list" v-for="(v, i) in commentList" :key="i">
       <img :src="v.avatar" alt="" />
       <li class="info">
         <div class="info-top">
           <div class="info-top-l">
-            <span class="nickname">{{ formatName(v.nickname) }}</span>
-            <span class="level"
+            <span class="nickname">{{ formatName(v.name) }}</span>
+            <!-- <span class="level"
               ><i class="iconfont icon-zuanshi"></i>: {{ v.level }}</span
-            >
+            >-->
             <p class="ip">
               IP: <span>{{ v.ip }}</span>
             </p>
@@ -30,13 +30,10 @@
           <el-rate v-model="v.rate" :disabled="true" :colors="colors" />
         </div>
         <p class="evaluate">
-          {{ v.evaluate }}
+          {{ v.commentContent }}
         </p>
         <div class="info-b">
-          <span class="view"
-            >浏览<span class="num">{{ v.view }}</span> 次</span
-          >
-          <span class="time">{{ v.date }}</span>
+          <span class="time">{{ v.commentDate }}</span>
         </div>
       </li>
     </ul>
@@ -61,52 +58,46 @@ import LocalCache from '@/utils/cache'
 import router from '@/router'
 import { getDate } from '@/utils/getDate'
 import { formatName } from '@/utils/formatName'
+import usePinia from '@/store'
 
 const props = withDefaults(
   defineProps<{
-    user: any[]
+    commentList: any[]
+    id: any
   }>(),
-  {
-    user: () => [],
-  },
+  {},
 )
-const emits = defineEmits(['updateCount'])
-
+const emits = defineEmits(['addComment'])
+const { user } = usePinia()
 const colors = ref(['#99A9BF'])
+
 //是否显示结果标识
 const resShow = ref(false)
-// 新数据 后面好吧自己评论的数据添加进去
-const newData = ref<any[]>([...props.user])
 // 是否显示弹窗标识
 const dialogShow = ref(false)
-const token = LocalCache.getCache('pet-token')
+const token = user.token
 // 我的评论数据
-const myEvaluate = reactive({
+const myComment = reactive({
   rate: 0,
-  evaluate: '',
-  nickname: LocalCache.getCache('pet-username'),
-  level: 3,
-  ip: '四川省',
-  view: 1,
-  date: getDate(),
-  avatar: LocalCache.getCache('pet-avatar'),
+  commentContent: '',
+  commodityMessageId: props.id,
+  userId: user.userId,
 })
 
 // 评论
-const evaluate = () => {
+const comment = () => {
   // 如果没登录，展示弹窗
   if (!token) {
     dialogShow.value = true
   }
-  // 把评论的数据添加到总数据总数据中，
-  newData.value.unshift({ ...myEvaluate })
 
-  // 把新数据长度发给父组件展示
-  emits('updateCount', newData.value.length)
-
+  emits('addComment', myComment)
   // 评论完成， 把输入框的内容清空
-  myEvaluate.evaluate = ''
-  myEvaluate.rate = 0
+  setTimeout(() => {
+    myComment.commentContent = ''
+    myComment.rate = 0
+  }, 500)
+
   // 结果弹窗显示 1秒后隐藏
   resShow.value = true
   setTimeout(() => {
@@ -135,7 +126,9 @@ defineExpose({ goodsEvaluateRef })
     margin-top: 20px;
     margin-left: 72px;
     .flex;
-    border-bottom: 2px solid @basic-color;
+    &:not(:last-child) {
+      border-bottom: 2px solid @basic-color;
+    }
     .rate {
       display: flex;
       flex-direction: column;
@@ -168,6 +161,9 @@ defineExpose({ goodsEvaluateRef })
     padding-left: 100px;
     display: flex;
     position: relative;
+    // &:not(:last-child) {
+    //   border-bottom: 2px solid @basic-color;
+    // }
     &:not(:last-child)::after {
       content: '';
       position: absolute;

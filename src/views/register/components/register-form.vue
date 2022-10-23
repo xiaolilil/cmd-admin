@@ -1,8 +1,12 @@
 <template>
   <div class="register-form">
-    <img src="@/assets/common/logo2.webp" alt="" class="logo" />
     <el-form class="form" ref="formRef" :rules="rules" :model="account">
       <h2>新用户注册</h2>
+
+      <el-form-item class="form-item" prop="name">
+        <i class="iconfont icon-xiugainicheng"></i>
+        <el-input v-model="account.name" placeholder="请输入昵称"></el-input>
+      </el-form-item>
       <el-form-item class="form-item" prop="petName">
         <i class="iconfont icon-yonghu"></i>
         <el-input v-model="account.petName" placeholder="请输入账号"></el-input>
@@ -28,7 +32,7 @@
       <el-button class="registerBtn" @click="handleRegister" type="success"
         >注册</el-button
       >
-      <div class="toLogin"><span @click="toLogin">已账号，去登录</span></div>
+      <div class="toLogin"><span @click="toLogin">已有账号，去登录</span></div>
     </el-form>
   </div>
 
@@ -178,8 +182,8 @@
 <script lang="ts" setup>
 // @ts-ignore
 // import { registerApi } from '@/apis/user.js'
-// @ts-ignore
-import { registerApi } from '@/api/user.js'
+
+import { registerApi } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import { rules } from '@/config/form-rules'
@@ -192,6 +196,7 @@ const router = useRouter()
 const account = reactive({
   petName: '', // 账号
   petPwd: '', // 密码
+  name: '', // 昵称
 })
 
 const isAgree = ref(true)
@@ -240,20 +245,20 @@ const toLogin = () => {
 @import '@/style/common.less';
 .register-form {
   height: 500px;
-  background-color: @basic-color;
+  background-image: url(@/assets/bg.jpg);
   padding: 0 18%;
-  .flex;
-  .logo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+  padding: 0 12%;
+  &::before {
+    content: '';
   }
+  .flex;
+
   .form {
     width: 400px;
-    height: 360px;
+    height: 380px;
     padding: 0 40px;
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.482);
+    background-color: #f8f8f8;
     box-shadow: 0 0 15px #ccc;
     border-radius: 20px;
     h2 {
@@ -308,7 +313,6 @@ const toLogin = () => {
       margin-top: 15px;
     }
     .toLogin {
-      color: #fff;
       margin-top: 20px;
       text-align: right;
       cursor: pointer;

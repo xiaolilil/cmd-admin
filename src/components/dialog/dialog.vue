@@ -1,6 +1,7 @@
 <template>
   <div class="dialog" v-if="showDialog">
     <div class="content">
+      <i class="iconfont" :class="icon"></i>
       <p class="text">
         {{ text }}
       </p>
@@ -15,6 +16,7 @@ const props = withDefaults(
   defineProps<{
     text: string
     isShow: boolean
+    icon?: string
   }>(),
   { isShow: false },
 )

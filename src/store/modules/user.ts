@@ -20,10 +20,10 @@ const useUserStore = defineStore({
   actions: {
     setUserInfo(userData: any) {
       // 把数据解构出来
-      const { userId, token, avatar, username } = userData
-
+      const { id, token, avatar, username } = userData
+      console.log('id', id)
       this.token = token
-      this.userId = userId
+      this.userId = id
       this.avatar = avatar
       this.username = username
     },

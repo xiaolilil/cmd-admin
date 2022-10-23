@@ -5,10 +5,10 @@
     <div class="goods-parameter">
       <!-- 海报 -->
       <div class="goods-l">
-        <img class="poster" :src="goodsInfo.imgUrl" alt="" />
+        <img class="poster" :src="goodsInfo.commodityImgUrl" alt="" />
       </div>
       <div class="goods-r">
-        <h1>{{ goodsInfo.goods_name }}</h1>
+        <h1>{{ goodsInfo.commodityName }}</h1>
         <!-- 活动 -->
         <div class="activity center">
           <div class="title">
@@ -19,8 +19,8 @@
             <p>
               活动价 :
               <span class="dw">￥</span>
-              <span class="new">{{ goodsInfo.newPrice }} </span>
-              <span class="old">￥{{ goodsInfo.oldPrice }}</span>
+              <span class="new">{{ goodsInfo.commodityNewPrice }} </span>
+              <span class="old">￥{{ goodsInfo.commodityOldPrice }}</span>
             </p>
           </div>
         </div>
@@ -29,11 +29,11 @@
         <div class="data center">
           <div class="data-t">
             <p>
-              月销: <span>{{ goodsInfo.sales }}</span>
+              月销: <span>{{ goodsInfo.commoditySales }}</span>
             </p>
             <p>
               评价:
-              <span>({{ totalCount }})</span>
+              <span>({{ commentTotal }})</span>
             </p>
           </div>
           <ul class="data-b">
@@ -89,12 +89,12 @@
         <span>商品详情</span>
       </li>
       <li
-        :class="{ 'active-menu': currName == 'GoodsEvaluate' }"
-        @click="changeModel('GoodsEvaluate')"
+        :class="{ 'active-menu': currName == 'GoodsComment' }"
+        @click="changeModel('GoodsComment')"
       >
         <span
           >商品评论
-          <span>({{ totalCount }})</span>
+          <span>({{ commentTotal }})</span>
         </span>
       </li>
     </ul>
@@ -103,10 +103,10 @@
   <div class="menu-model center">
     <component
       :is="componentConfig[currName]"
-      :detailsData="detailsList"
       :goodsData="goodsData"
-      :user="userList"
-      @updateCount="updateCount"
+      :commentList="commentList"
+      :id="id"
+      @addComment="addComment"
     ></component>
   </div>
 
@@ -133,61 +133,94 @@
       </div>
     </div>
   </el-dialog>
+
+  <Dialog
+    icon="icon-cuowu"
+    text="您当前还未登录，请登录后再进行添加到购物车!"
+    :isShow="tipsDialogVisible"
+    @updateDialog="updateDialog"
+  />
 </template>
 
 <script lang="ts" setup>
 // @ts-ignore
-import { getClassifyApi } from '@/apis/goodsDetails.js'
+// import { getClassifyApi } from '@/apis/goodsDetails.js'
+import {
+  getGoodsDataApi,
+  getCommentApi,
+  addCommentApi,
+  addCartApi,
+} from '@/api/goodsDetails'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { reactive, ref, defineAsyncComponent } from 'vue'
 import usePinia from '@/store'
 import cityData from '@/utils/citydata'
-
 import 'element-plus/theme-chalk/el-message-box.css'
 import { useCountCartPrice } from '@/hooks/useCountCartPrice'
-import { defineAsyncComponent } from 'vue'
+import Dialog from '@/components/dialog/dialog.vue'
 
 const GoodsDetailsImg = defineAsyncComponent({
   // 加载函数
   loader: () => import('./components/goodsDetailsImg.vue'),
   // 展示加载组件前的延迟时间，默认为 200ms
-  delay: 200,
+  delay: 50,
 })
-const GoodsEvaluate = defineAsyncComponent({
+const GoodsComment = defineAsyncComponent({
   // 加载函数
-  loader: () => import('./components/goodsEvaluate.vue'),
+  loader: () => import('./components/comment.vue'),
   delay: 100,
 })
 
 // 子组件
 const componentConfig = {
   GoodsDetailsImg: GoodsDetailsImg,
-  GoodsEvaluate: GoodsEvaluate,
+  GoodsComment: GoodsComment,
 }
 
-const { goods, user, cart } = usePinia()
+const { user, cart } = usePinia()
 const router = useRouter()
+const route = useRoute()
+const id = Number(route.query.id)
 
 // 获取商品详情数据
-const detailsList = ref<any[]>([])
-const evaluate = ref<any[]>([])
+const goodsData = ref<any>({})
 const goodsInfo = ref<any>({})
-const userList = ref([])
-const goodsData = ref({})
-const totalCount = ref(0)
-
+// 获取商品详情
 async function getGoodsDetails() {
-  const { data: res } = await getClassifyApi(goods.getGoodsInfo)
-  goodsInfo.value = res
-  detailsList.value = res.details
-  evaluate.value = res.user.evaluate
-  userList.value = res.user
-  goodsData.value = res.goodsData
+  const { data: res } = await getGoodsDataApi({ id: id })
+  goodsInfo.value = res[0]
 
-  // 评论总条数
-  totalCount.value = res.user.length
+  // 底部商品详情区域数据
+  goodsData.value = {
+    brand: res[0].brand,
+    origin: res[0].origin,
+    place: res[0].place,
+    donation: res[0].donation,
+    donationTotal: res[0].donationTotal,
+    details: res[0].details.split(','),
+    commodityAge: res[0].commodityAge,
+  }
 }
 getGoodsDetails()
+
+const commentTotal = ref(0)
+const commentList = reactive<any[]>([])
+// 获取商品评论
+async function getCommentList() {
+  const { data: res } = await getCommentApi({
+    commodityMessageId: Number(route.query.id),
+  })
+  commentList.push(...res)
+  commentTotal.value = res.length
+}
+getCommentList()
+
+// 获取子组件传递来的数据
+const addComment = async (obj: any) => {
+  // 添加评论
+  await addCommentApi(obj)
+  getCommentList()
+}
 
 // 商品数量
 const goodsNum = ref(1)
@@ -208,29 +241,39 @@ const changeModel = (menu: string) => {
   currName.value = menu
 }
 
-// 获取子组件传递来的数据
-const updateCount = (num: number) => {
-  totalCount.value = num
-}
-
+const tipsDialogVisible = ref(false)
 const dialogVisible = ref(false)
 // 加入购物车
-const addGoodsToCart = () => {
-  // 商品数据对象
-  const goodsData = {
-    imgUrl: goodsInfo.value.imgUrl,
-    num: goodsNum.value,
-    price: goodsInfo.value.newPrice,
-    address: address.value,
-    goods_name: goodsInfo.value.goods_name,
-    goods_id: goodsInfo.value.goods_id,
-    isCheck: true,
-    isPay: 0,
+const addGoodsToCart = async () => {
+  if (user.token == '') {
+    tipsDialogVisible.value = true
+    return
+  } else {
+    await addCartApi({ user_id: user.userId, goods_id: id })
+    dialogVisible.value = true
   }
-  // 调用action 保存到pinia cart模块去
-  cart.setGoodsList(goodsData)
-  dialogVisible.value = true
 }
+const updateDialog = () => {
+  tipsDialogVisible.value = false
+  router.push('/login')
+}
+/* 
+  测试接口
+// getCartApi({ user_id: user.userId })
+// removeCartApi({ user_id: user.userId, goods_id: id })
+// clearCartApi({ user_id: user.userId })
+
+// addOrderApi({
+//   user_id: user.userId,
+//   order_state: 1,
+//   order_address: 'asdas',
+//   order_phone: '11111',
+//   goods_id: id,
+// })
+
+// getOrderApi({ user_id: user.userId, order_state: 1 })
+// removeOrderApi({ order_id: 6 })
+ */
 
 // 解构 hooks 里面的数据
 const { totalPrice, goodsList } = useCountCartPrice()
@@ -418,6 +461,7 @@ const toCart = () => {
 .menu-model {
   width: 1200px;
   height: 100%;
+  margin-bottom: 30px;
 }
 .content {
   display: flex;

@@ -20,6 +20,10 @@
         <span>我的好伙伴宠物</span>
         <i class="iconfont icon-xiajiantou"></i>
         <ul class="user-nav2">
+          <li @click="skipPage('userInfo')">
+            <i class="iconfont icon-yonghu"></i>
+            <span>个人信息</span>
+          </li>
           <li @click="skipPage('cart')">
             <i class="iconfont icon-gouwuche"></i>
             <span>购物车</span>
@@ -40,7 +44,6 @@ import { useRouter } from 'vue-router'
 import usePinia from '@/store'
 import { computed } from 'vue'
 import LocalCache from '@/utils/cache'
-import { loginOutApi } from '@/apis/user.js'
 
 const { user, cart } = usePinia()
 const router = useRouter()
@@ -54,17 +57,18 @@ const avatar = computed(() => LocalCache.getCache('pet-avatar'))
 
 // 退出登录
 const logOut = () => {
-  loginOutApi().then((res: any) => {
-    // 删除本地的用户信息
-    LocalCache.deleteCache('pet-token')
-    LocalCache.deleteCache('pet-userId')
-    LocalCache.deleteCache('pet-uername')
-    LocalCache.deleteCache('pet-savatar')
-  })
+  router.push('/login')
+  user.token = ''
+  // 删除本地的用户信息
+  LocalCache.deleteCache('pet-token')
+  LocalCache.deleteCache('pet-userId')
+  LocalCache.deleteCache('pet-uername')
+  LocalCache.deleteCache('pet-savatar')
 }
 
 const skipPage = (path: string) => {
   router.push('/home/' + path)
+  if (path == 'userInfo') router.push('/userInfo')
 }
 </script>
 
@@ -91,7 +95,6 @@ const skipPage = (path: string) => {
     }
   }
   .info {
-    // width: 100px;
     div {
       .flex;
     }
@@ -126,8 +129,8 @@ const skipPage = (path: string) => {
       top: 35px;
       background-color: #f8f8f8;
       width: 100%;
-      height: 80px;
-      z-index: 100;
+      height: 110px;
+      z-index: 1000;
       display: none;
       li {
         display: block;

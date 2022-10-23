@@ -1,7 +1,38 @@
-import service from '@/utils/request.js'
+import service from '@/utils/request'
+import { IHomeCateGoodsType, IRecommendGoodsType } from '@/types/apis'
 
+// 获取轮播图
+export function getSwiperListApi() {
+  return service({
+    url: '/news/getSwiper',
+  })
+}
 
+/**
+ * @description:  获取商品分类列表
+ * @param {*} params  {str: '宠物主粮'}
+ * @return {*} [{}]
+ */
+export function getHomeCategoryApi(params: IHomeCateGoodsType) {
+  return service({
+    url: '/news/getCategory/foodStuff',
+    method: 'get',
+    params,
+  })
+}
 
+/**
+ * @description: 首页 推荐商品
+ * @param {*} params {arr : [1]}
+ * @return {*} [{}]
+ */
+export function getGoodsFoodStuffApi(params: IRecommendGoodsType) {
+  return service({
+    url: '/news/goods/foodStuff',
+    method: 'get',
+    params,
+  })
+}
 
 // 获取分类主粮
 export function getCateFoodStuffApi() {
@@ -45,9 +76,6 @@ export function getCateClothesApi() {
   })
 }
 
-
-
-
 // 获取商品零食
 export function getGoodsSnacksApi() {
   return service({
@@ -64,43 +92,5 @@ export function getGoodsToysApi() {
 export function getGoodsClothesApi() {
   return service({
     url: '/news/goods/clothes',
-  })
-}
-
-
-// 首页 推荐商品
-/**
- * @description: 
- * @param {*} params {arr : [1]}
- * @return {*} [{}]
- */
-export function getGoodsFoodStuffApi(params) {
-  console.log('params', params)
-  return service({
-    url: '/news/goods/foodStuff',
-    method: 'get',
-    params
-  })
-}
-
-
-// 获取商品分类列表
-/**
- * @description: 
- * @param {*} params  {str: '宠物主粮'}
- * @return {*} [{}]
- */
-export function getHomeCategoryApi(params) {
-  return service({
-    url: '/news/getCategory/foodStuff',
-    method: 'get',
-    params
-  })
-}
-
-// 获取轮播图
-export function getSwiperListApi() {
-  return service({
-    url: '/news/getSwiper',
   })
 }

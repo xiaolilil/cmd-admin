@@ -1,6 +1,5 @@
 <template>
   <div class="login-form">
-    <img src="@/assets/common/logo2.webp" alt="" class="logo" />
     <el-form class="form" ref="formRef" :rules="rules" :model="account">
       <h2>账户登录</h2>
       <el-form-item class="form-item" prop="petName">
@@ -42,7 +41,7 @@
 // mock 请求数据
 // import { loginApi } from '@/apis/user.js'
 // @ts-ignore  node 请求数据
-import { loginApi } from '@/api/user.js'
+import { loginApi } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import localCache from '@/utils/cache'
@@ -82,7 +81,8 @@ const handleLogin = () => {
       // 2. 发起登录请求
       loginApi(account).then((res: any) => {
         console.log('res', res)
-        if (res?.code == '200') {
+        if (res.code == '200') {
+          localCache.setCache('pet-token', res.data.token)
           // 调用 pinia 的方法，把用户信息保存到 pinia
           user.setUserInfo(res.data)
           // 跳转到首页
@@ -117,20 +117,19 @@ const toRegister = () => {
 @import '../../../style/common.less';
 .login-form {
   height: 550px;
-  background-color: @basic-color;
-  padding: 0 18%;
-  .flex;
-  .logo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+  background-image: url(@/assets/bg.jpg);
+  padding: 0 12%;
+  &::before {
+    content: '';
   }
+  .flex;
+
   .form {
     width: 400px;
     height: 360px;
     padding: 0 40px;
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.482);
+    background-color: #f8f8f8;
     box-shadow: 0 0 15px #ccc;
     border-radius: 20px;
     h2 {
@@ -191,7 +190,6 @@ const toRegister = () => {
       margin-top: 30px;
     }
     .toRegister {
-      color: #fff;
       margin-top: 20px;
       text-align: right;
       cursor: pointer;

@@ -50,7 +50,7 @@ import Introduce from './components/introduce.vue'
 import GoodsInfo from '@/components/goods-info/index.vue'
 import { onMounted, ref, watch } from 'vue'
 
-import { getSwiperListApi, getGoodsFoodStuffApi } from '@/api/home.js'
+import { getSwiperListApi, getGoodsFoodStuffApi } from '@/api/home'
 
 // 定义轮播图列表变量
 const swiperList = ref<{ url: string }[]>([])

@@ -103,6 +103,7 @@ async function getOrderInfo() {
 }
 getOrderInfo()
 
+const unpaidOrder = ref()
 // 显示支付完成变量
 const isShowRes = ref(false)
 // 显示支付动画变量
@@ -125,7 +126,7 @@ const pay = () => {
         cart.savePaidOrder(res.data)
         router.push('/home/viewOrder')
         // 支付成功，把当前这个未支付的订单删除
-        unpaidOrder.value = unpaidOrder.value.filter((i) => {
+        unpaidOrder.value = unpaidOrder.value.filter((i: any) => {
           return i.orderId != orderId.value
         })
         // console.log('unpaidOrder.value', unpaidOrder.value)

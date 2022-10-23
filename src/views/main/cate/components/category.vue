@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getHomeCategoryApi } from '@/api/home.js'
+import { getHomeCategoryApi } from '@/api/home'
 import { ref } from 'vue'
 import CateList from './cate-list.vue'
 
@@ -58,7 +58,7 @@ import CateList from './cate-list.vue'
 const foodStuffList = ref<any[]>([])
 async function getCateFoodStuff() {
   const { data: res } = await getHomeCategoryApi({ str: '宠物主粮' })
-  res.forEach((i) => {
+  res.forEach((i: any) => {
     i.classification = i.classification.split(',')
   })
   foodStuffList.value = res
@@ -69,7 +69,7 @@ getCateFoodStuff()
 const snacksList = ref<any[]>([])
 async function getCateSnacks() {
   const { data: res } = await getHomeCategoryApi({ str: '宠物零食' })
-  res.forEach((i) => {
+  res.forEach((i: any) => {
     i.classification = i.classification.split(',')
   })
   snacksList.value = res
@@ -80,7 +80,7 @@ getCateSnacks()
 const toysList = ref<any[]>([])
 async function getCateToys() {
   const { data: res } = await getHomeCategoryApi({ str: '宠物玩具' })
-  res.forEach((i) => {
+  res.forEach((i: any) => {
     i.classification = i.classification.split(',')
   })
   toysList.value = res
@@ -91,7 +91,7 @@ getCateToys()
 const cleanList = ref<any[]>([])
 async function getCateClean() {
   const { data: res } = await getHomeCategoryApi({ str: '宠物清洁' })
-  res.forEach((i) => {
+  res.forEach((i: any) => {
     i.classification = i.classification.split(',')
   })
   cleanList.value = res
@@ -102,7 +102,7 @@ getCateClean()
 const washList = ref<any[]>([])
 async function getCateWash() {
   const { data: res } = await getHomeCategoryApi({ str: '宠物洗护' })
-  res.forEach((i) => {
+  res.forEach((i: any) => {
     i.classification = i.classification.split(',')
   })
   washList.value = res
@@ -113,7 +113,7 @@ getCateWash()
 const clothesList = ref<any[]>([])
 async function getCateClothes() {
   const { data: res } = await getHomeCategoryApi({ str: '宠物服饰' })
-  res.forEach((i) => {
+  res.forEach((i: any) => {
     i.classification = i.classification.split(',')
   })
   clothesList.value = res

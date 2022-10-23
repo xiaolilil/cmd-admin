@@ -100,12 +100,13 @@ const changeCurrTypes = (type: string, index: number) => {
 // 跳转到商品详情页
 const router = useRouter()
 const toGoodsInfo = (v: any) => {
-  goods.setGoodsInfo(v)
-  LocalCache.setCache('pet-goods', v)
+  // goods.setGoodsInfo(v)
+  // LocalCache.setCache('pet-goods', v)
+  console.log('v', v)
   router.push({
     path: '/home/goodsDetails',
     query: {
-      goods_id: v.goods_id,
+      id: v.id,
     },
   })
 }
