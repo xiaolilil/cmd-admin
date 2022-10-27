@@ -59,6 +59,7 @@ const avatar = computed(() => LocalCache.getCache('pet-avatar'))
 const logOut = () => {
   router.push('/login')
   user.token = ''
+  user.isLogin = false
   // 删除本地的用户信息
   LocalCache.deleteCache('pet-token')
   LocalCache.deleteCache('pet-userId')

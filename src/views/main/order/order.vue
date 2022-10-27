@@ -205,14 +205,14 @@ const handleAdd = () => {
 // 保存地址
 const saveAddress = () => {
   formRef.value?.validate((valid) => {
-    if (valid) {
-      if (currTitle.value == '添加收获地址') {
-        cart.saveUserAddress(form)
-      } else {
-        cart.userAddress[0] = form
-      }
-      dialogVisible.value = false
-    }
+    // if (valid) {
+    //   if (currTitle.value == '添加收获地址') {
+    //     cart.saveUserAddress(form)
+    //   } else {
+    //     cart.userAddress[0] = form
+    //   }
+    //   dialogVisible.value = false
+    // }
   })
 }
 // 编辑地址

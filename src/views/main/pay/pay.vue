@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="pay">
     <div class="pay-top">
       <i class="iconfont icon-wancheng1"></i>
@@ -31,7 +31,6 @@
         </p>
         <p>
           <span>订单号: {{ orderInfo.orderId }}</span>
-          <!-- <span class="see">[查看]</span> -->
         </p>
       </div>
       <div class="zfb">
@@ -49,8 +48,8 @@
   <div v-if="loading" class="spinner"></div>
   <el-result v-if="isShowRes" class="res" icon="success" title="支付成功">
   </el-result>
-</template>
-
+</template> -->
+<!-- 
 <script lang="ts" setup>
 // @ts-ignore
 import { placeOrderApi, orderPayApi } from '@/apis/order.js'
@@ -135,7 +134,7 @@ const pay = () => {
   }, 3000)
 }
 </script>
-
+ -->
 <style lang="less" scoped>
 @import '@/style/common.less';
 

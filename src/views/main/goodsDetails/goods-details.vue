@@ -180,6 +180,7 @@ const componentConfig = {
 const { user, cart } = usePinia()
 const router = useRouter()
 const route = useRoute()
+// 商品id
 const id = Number(route.query.id)
 
 // 获取商品详情数据
@@ -204,13 +205,13 @@ async function getGoodsDetails() {
 getGoodsDetails()
 
 const commentTotal = ref(0)
-const commentList = reactive<any[]>([])
+const commentList = ref<any[]>([])
 // 获取商品评论
 async function getCommentList() {
   const { data: res } = await getCommentApi({
     commodityMessageId: Number(route.query.id),
   })
-  commentList.push(...res)
+  commentList.value = res
   commentTotal.value = res.length
 }
 getCommentList()
@@ -232,7 +233,8 @@ const handleChange = (value: number) => {
 const options = cityData
 const address = ref<any[]>([])
 const handleChangeAddress = (value: any) => {
-  user.setAddress(value)
+  // 保存地址到 pinia
+  cart.saveUserAddress(value)
 }
 
 // 当前显示的模块 默认显示  商品详情
@@ -245,19 +247,24 @@ const tipsDialogVisible = ref(false)
 const dialogVisible = ref(false)
 // 加入购物车
 const addGoodsToCart = async () => {
-  if (user.token == '') {
+  if (!user.isLogin) {
     tipsDialogVisible.value = true
     return
   } else {
-    await addCartApi({ user_id: user.userId, goods_id: id })
-    dialogVisible.value = true
+    const res = await cart.addCart(id)
+    if (res) {
+      dialogVisible.value = true
+    } else {
+      return
+    }
+    // await addCartApi({ user_id: user.userId, goods_id: id })
   }
 }
 const updateDialog = () => {
   tipsDialogVisible.value = false
   router.push('/login')
 }
-/* 
+/*
   测试接口
 // getCartApi({ user_id: user.userId })
 // removeCartApi({ user_id: user.userId, goods_id: id })
@@ -276,7 +283,7 @@ const updateDialog = () => {
  */
 
 // 解构 hooks 里面的数据
-const { totalPrice, goodsList } = useCountCartPrice()
+const { cartTotalPrice, totalPrice, goodsList } = useCountCartPrice()
 
 // 跳到购物车页面
 const toCart = () => {

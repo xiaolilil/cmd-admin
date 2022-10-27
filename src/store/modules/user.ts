@@ -14,6 +14,7 @@ const useUserStore = defineStore({
       username: '',
       avatar: '',
       address: '',
+      isLogin: false,
     }
   },
   getters: {},
@@ -21,11 +22,11 @@ const useUserStore = defineStore({
     setUserInfo(userData: any) {
       // 把数据解构出来
       const { id, token, avatar, username } = userData
-      console.log('id', id)
       this.token = token
       this.userId = id
       this.avatar = avatar
       this.username = username
+      this.isLogin = true
     },
     setAddress(payload: any[]) {
       this.address = payload[0] + payload[1] + payload[2]

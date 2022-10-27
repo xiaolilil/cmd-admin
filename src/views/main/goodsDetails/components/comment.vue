@@ -20,9 +20,7 @@
         <div class="info-top">
           <div class="info-top-l">
             <span class="nickname">{{ formatName(v.name) }}</span>
-            <!-- <span class="level"
-              ><i class="iconfont icon-zuanshi"></i>: {{ v.level }}</span
-            >-->
+
             <p class="ip">
               IP: <span>{{ v.ip }}</span>
             </p>
@@ -54,9 +52,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import LocalCache from '@/utils/cache'
 import router from '@/router'
-import { getDate } from '@/utils/getDate'
 import { formatName } from '@/utils/formatName'
 import usePinia from '@/store'
 
@@ -92,6 +88,7 @@ const comment = () => {
   }
 
   emits('addComment', myComment)
+
   // 评论完成， 把输入框的内容清空
   setTimeout(() => {
     myComment.commentContent = ''

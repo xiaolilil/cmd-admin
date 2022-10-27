@@ -3,7 +3,7 @@ import {
   IGoodsType,
   ICommentGoodsType,
   ICommentListType,
-  IAddCart,
+  ICart,
 } from '@/types/apis'
 
 /**
@@ -45,7 +45,12 @@ export function addCommentApi(data: ICommentGoodsType) {
   })
 }
 
-export function addCartApi(data: IAddCart) {
+/**
+ * @description: 添加到购物车
+ * @param {ICart} data {user_id:1,num:10,  goods_id:10}
+ * @return {*}
+ */
+export function addCartApi(data: ICart) {
   return service({
     url: '/shopping/addShopping',
     method: 'post',

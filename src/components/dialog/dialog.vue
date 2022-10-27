@@ -1,8 +1,8 @@
 <template>
   <div class="dialog" v-if="showDialog">
     <div class="content">
-      <i class="iconfont" :class="icon"></i>
       <p class="text">
+        <i class="iconfont" :class="icon"></i>
         {{ text }}
       </p>
       <button @click="confirm">确定</button>
@@ -55,6 +55,9 @@ const confirm = () => {
     left: 50%;
     top: 40%;
     transform: translateX(-50%);
+    .iconfont {
+      font-size: 25px;
+    }
     .text {
       padding: 20px;
       line-height: 30px;

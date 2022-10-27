@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import { ICartState, IAddress } from '../types'
 import LocalCache from '@/utils/cache'
 import { store } from '../index'
+import { addCartApi } from '@/api/goodsDetails'
+import { getCartApi } from '@/api/cart'
+import { useUserStores } from './user'
 
 // 第二个参数，以对象形式配置仓库的state,getters,actions
 const useCartStore = defineStore({
@@ -40,14 +43,8 @@ const useCartStore = defineStore({
       this.currSteps = payload
     },
     saveUserAddress(payload: any) {
-      // console.log('payload', payload)
-
+      this.userAddress = []
       this.userAddress.push(payload)
-      // 保存默认地址到本地
-      if (payload.isDefault) {
-        LocalCache.setCache('pet-address', payload)
-      }
-
       console.log('this.userAddress', this.userAddress)
     },
     setCheckGoosList(list: any[]) {
@@ -65,6 +62,24 @@ const useCartStore = defineStore({
     },
     toPayGoods(obj: any) {
       this.theUnpaid = obj
+    },
+    // 添加到购物车
+    async addCart(goods_id: number) {
+      const { data: res } = await addCartApi({
+        user_id: useUserStores().userId,
+        goods_id: goods_id,
+      })
+      if (res.code == 200) {
+        return true
+      }
+    },
+
+    // 获取购物车的商品数据
+    async getCart() {
+      const { data: res } = await getCartApi({
+        user_id: useUserStores().userId,
+      })
+      this.goodsList = res
     },
   },
   persist: {

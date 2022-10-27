@@ -1,10 +1,25 @@
 import usePinia from '@/store'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { getCartApi } from '@/api/cart'
 
 export function useCountCartPrice() {
-  const { cart } = usePinia()
-  const { goodsList, unpaidOrder, theUnpaid } = storeToRefs(cart)
+  const { user, cart } = usePinia()
+  const { goodsList } = storeToRefs(cart)
+  // const userId = user.userId
+  // getCartApi({ user_id: userId }).then((res) => {
+  //   goodsList = res.data
+  // })
+
+  const cartTotalPrice = computed(() => {
+    let total = 0
+    // 循环计算商品总价
+    for (let i = 0; i < goodsList.value.length; i++) {
+      total +=
+        (goodsList.value[i].num ? 5 : 1) * goodsList.value[i].commodityNewPrice
+    }
+    return total
+  })
 
   const totalPrice = computed(() => {
     // 筛选出确认的商品数据
@@ -27,8 +42,8 @@ export function useCountCartPrice() {
     //       unpaidOrder.value[i].goodsList[k].price
     //   }
     // }
-    return theUnpaid.value.goodsList[0].num * theUnpaid.value.goodsList[0].price
+    // return theUnpaid.value.goodsList[0].num * theUnpaid.value.goodsList[0].price
   })
 
-  return { totalPrice, goodsList, theUnpaidPrice }
+  return { totalPrice, goodsList, cartTotalPrice, theUnpaidPrice }
 }

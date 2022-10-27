@@ -2,14 +2,14 @@
   <div class="head">
     <div class="head-content center">
       <img
-        @click="router.push('/home')"
+        @click="toHome"
         class="logo"
         src="@/assets/common/logo.webp"
         alt=""
       />
       <div v-if="isShowCart" class="cart" @click="toCart">
         <span>购物车</span>
-        <span>({{ cart.goodsList.length }})</span>
+        <span v-if="user.isLogin">({{ cart.goodsList.length }})</span>
       </div>
       <el-steps
         v-if="!isShowCart"
@@ -30,12 +30,15 @@ import { useRouter, useRoute } from 'vue-router'
 import usePinia from '@/store'
 import { ref, watch } from 'vue'
 
-const { cart } = usePinia()
+const { user, cart } = usePinia()
 const router = useRouter()
 const route = useRoute()
 
 const toCart = () => {
   router.push('/home/cart')
+}
+const toHome = () => {
+  router.push('/home/cate')
 }
 
 const currSteps = ref(0)

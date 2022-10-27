@@ -4,6 +4,7 @@ export interface IUserState {
   username: string
   token: string
   address: ''
+  isLogin: boolean
 }
 
 export interface IGoodsState {

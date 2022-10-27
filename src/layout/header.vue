@@ -1,7 +1,12 @@
 <template>
   <div class="login-top">
     <div class="login-top-content center">
-      <img class="logo" src="@/assets/common/logo.webp" alt="" />
+      <img
+        class="logo"
+        @click="router.push('/home')"
+        src="@/assets/common/logo.webp"
+        alt=""
+      />
       <ul class="login-top-r">
         <li>
           <i class="iconfont icon-zhengpinbaozhangxian"></i>
@@ -20,7 +25,10 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+</script>
 
 <style lang="less" scoped>
 @import '@/style/common.less';
