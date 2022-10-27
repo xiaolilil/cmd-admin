@@ -4,7 +4,6 @@ import { store } from '../index'
 
 // import { useMainrStores } from './main'
 
-// id: 'user',作为仓库ID 以区分仓库
 const useUserStore = defineStore({
   id: 'user',
   state: (): IUserState => {
@@ -15,21 +14,28 @@ const useUserStore = defineStore({
       avatar: '',
       address: '',
       isLogin: false,
+      ip: '',
     }
   },
   getters: {},
   actions: {
+    // 保存用户信息
     setUserInfo(userData: any) {
       // 把数据解构出来
-      const { id, token, avatar, username } = userData
+      const { id, token, avatar, username, ip } = userData
       this.token = token
       this.userId = id
       this.avatar = avatar
       this.username = username
       this.isLogin = true
+      this.ip = ip
     },
+    // 保存地址
     setAddress(payload: any[]) {
       this.address = payload[0] + payload[1] + payload[2]
+    },
+    clearInfo() {
+      console.log('this', this)
     },
   },
   persist: {

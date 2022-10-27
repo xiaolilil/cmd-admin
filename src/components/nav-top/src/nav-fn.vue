@@ -60,6 +60,8 @@ const logOut = () => {
   router.push('/login')
   user.token = ''
   user.isLogin = false
+  cart.goodsList = []
+  user.clearInfo()
   // 删除本地的用户信息
   LocalCache.deleteCache('pet-token')
   LocalCache.deleteCache('pet-userId')

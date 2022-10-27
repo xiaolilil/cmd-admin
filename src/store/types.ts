@@ -5,6 +5,7 @@ export interface IUserState {
   token: string
   address: ''
   isLogin: boolean
+  ip: string
 }
 
 export interface IGoodsState {
@@ -30,4 +31,6 @@ export interface ICartState {
   paidOrder: any[]
   unpaidOrder: any[]
   theUnpaid: any
+  addressData: any
+  newData: any[]
 }

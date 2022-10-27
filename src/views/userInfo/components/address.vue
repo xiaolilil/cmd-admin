@@ -1,45 +1,53 @@
 <template>
   <div class="head">
     <span class="title">收获地址</span>
-    <span v-if="!cart.userAddress" class="add"><span>+</span>添加新地址</span>
+    <span @click="handleAdd" v-if="formData.name == ''" class="add"
+      ><span>+</span>添加新地址</span
+    >
   </div>
 
-  <div class="address-box">
+  <div class="address-box" v-if="formData.name != ''">
     <div class="address-top">
-      <p><span class="name">李先生</span><span>收</span></p>
+      <p>
+        <span class="name">{{ formData.name }}</span
+        ><span>收</span>
+      </p>
       <p class="address">{{ formatAddress }}</p>
-      <p>176****6592</p>
+      <p>{{ formatPhone(formData.mobile) }}</p>
     </div>
     <div class="handle">
-      <span @click="edit">编辑</span>
-      <span @click="del">删除</span>
+      <span @click="hadnleEdit">编辑</span>
+      <span @click="handleDel">删除</span>
     </div>
   </div>
+
+  <div class="empty" v-else>
+    <el-empty description="您暂时还没有设置地址" />
+  </div>
+
+  <handle-address-dialog
+    :dialog-visible="isShowDialog"
+    :curr-title="currTilte"
+    :is-show-default="false"
+    :form-data="formData"
+    @handle-colse="isShowDialog = false"
+  ></handle-address-dialog>
 </template>
 
 <script lang="ts" setup>
-import usePinia from '@/store'
-import { ref, computed } from 'vue'
+import HandleAddressDialog from '@/components/handleAddressDialog/handleAddressDialog.vue'
+import { useHandleAddress } from '@/hooks/useHandleAddress'
 
-const { cart } = usePinia()
-
-// 收获地址
-const formatAddress = computed(() => {
-  let address = ''
-  if (cart.userAddress) {
-    if (cart.userAddress.length === 3) {
-      address = cart.userAddress[0] + cart.userAddress[1] + cart.userAddress[2]
-    } else {
-      address = cart.userAddress[0] + cart.userAddress[1]
-    }
-  }
-  return address
-})
-
-// 编辑地址
-const edit = () => {}
-// 删除地址
-const del = () => {}
+const {
+  handleAdd,
+  handleDel,
+  hadnleEdit,
+  currTilte,
+  isShowDialog,
+  formData,
+  formatAddress,
+  formatPhone,
+} = useHandleAddress()
 </script>
 
 <style lang="less" scoped>
@@ -55,6 +63,7 @@ const del = () => {}
       margin-right: 3px;
     }
     font-size: 13px;
+    cursor: pointer;
   }
 }
 
@@ -86,7 +95,13 @@ const del = () => {}
       margin-right: 30px;
       font-size: 12px;
       color: cornflowerblue;
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
     }
   }
+}
+.empty {
 }
 </style>

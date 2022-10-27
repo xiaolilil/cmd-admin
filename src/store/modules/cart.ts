@@ -3,8 +3,9 @@ import { ICartState, IAddress } from '../types'
 import LocalCache from '@/utils/cache'
 import { store } from '../index'
 import { addCartApi } from '@/api/goodsDetails'
-import { getCartApi } from '@/api/cart'
+import { getCartApi, removeCartApi } from '@/api/cart'
 import { useUserStores } from './user'
+import { clearObj } from '@/utils/clearObj'
 
 // 第二个参数，以对象形式配置仓库的state,getters,actions
 const useCartStore = defineStore({
@@ -12,12 +13,20 @@ const useCartStore = defineStore({
   state: (): ICartState => {
     return {
       goodsList: [],
+      newData: [],
       currSteps: 0,
       userAddress: [],
       isCheckGoodsList: [],
       paidOrder: [],
       unpaidOrder: [],
       theUnpaid: {},
+      addressData: {
+        name: '',
+        mobile: '',
+        address: [],
+        detailsAddress: '',
+        isDefault: true,
+      },
     }
   },
   getters: {},
@@ -65,21 +74,44 @@ const useCartStore = defineStore({
     },
     // 添加到购物车
     async addCart(goods_id: number) {
-      const { data: res } = await addCartApi({
+      const res = await addCartApi({
         user_id: useUserStores().userId,
         goods_id: goods_id,
       })
-      if (res.code == 200) {
+      if (res.code == '200') {
+        this.getCart()
         return true
+      } else {
+        return false
       }
     },
-
     // 获取购物车的商品数据
     async getCart() {
       const { data: res } = await getCartApi({
         user_id: useUserStores().userId,
       })
       this.goodsList = res
+    },
+
+    async delCartGoods(payload: any) {
+      const res = await removeCartApi({
+        user_id: useUserStores().userId,
+        goods_id: payload,
+      })
+      if (res.code == '200') {
+        this.getCart()
+      }
+    },
+
+    // 保存用户地址表单数据
+    saveAddressData(payload: any) {
+      this.addressData = payload
+    },
+    delAddressData() {
+      this.addressData = clearObj(this.addressData)
+    },
+    saveNewData(payload: any) {
+      this.newData = payload
     },
   },
   persist: {

@@ -50,7 +50,7 @@ import { ElForm } from 'element-plus'
 import usePinia from '@/store'
 import Dialog from '@/components/dialog/dialog.vue'
 
-const { user } = usePinia()
+const { user, cart } = usePinia()
 const router = useRouter()
 const iskeepPassword = ref(true) // 是否记住密码
 // 是否显示 弹窗
@@ -80,11 +80,12 @@ const handleLogin = () => {
       }
       // 2. 发起登录请求
       loginApi(account).then((res: any) => {
-        console.log('res', res)
         if (res.code == '200') {
           localCache.setCache('pet-token', res.data.token)
           // 调用 pinia 的方法，把用户信息保存到 pinia
           user.setUserInfo(res.data)
+          // 获取当前用户购物车的数据
+          cart.getCart()
           // 跳转到首页
           router.push('/home')
         } else {

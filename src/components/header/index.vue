@@ -9,7 +9,7 @@
       />
       <div v-if="isShowCart" class="cart" @click="toCart">
         <span>购物车</span>
-        <span v-if="user.isLogin">({{ cart.goodsList.length }})</span>
+        <span v-if="user.isLogin">({{ newData.length }})</span>
       </div>
       <el-steps
         v-if="!isShowCart"
@@ -29,12 +29,15 @@
 import { useRouter, useRoute } from 'vue-router'
 import usePinia from '@/store'
 import { ref, watch } from 'vue'
+import { useCountCartPrice } from '@/hooks/useCountCartPrice'
 
 const { user, cart } = usePinia()
 const router = useRouter()
 const route = useRoute()
+const { newData } = useCountCartPrice()
 
 const toCart = () => {
+  console.log('222', 222)
   router.push('/home/cart')
 }
 const toHome = () => {

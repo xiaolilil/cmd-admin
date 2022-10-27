@@ -118,7 +118,7 @@
         <p>恭喜小主 ,成功添加到购物车咯~</p>
         <p>
           购物车共有
-          <span class="num">{{ goodsList.length }}</span> 件商品，合计：<span
+          <span class="num">{{ cart.newData.length }}</span> 件商品，合计：<span
             class="price"
             >{{ totalPrice }}</span
           >
@@ -247,7 +247,7 @@ const tipsDialogVisible = ref(false)
 const dialogVisible = ref(false)
 // 加入购物车
 const addGoodsToCart = async () => {
-  if (!user.isLogin) {
+  if (user.token === '') {
     tipsDialogVisible.value = true
     return
   } else {
@@ -264,27 +264,13 @@ const updateDialog = () => {
   tipsDialogVisible.value = false
   router.push('/login')
 }
-/*
-  测试接口
-// getCartApi({ user_id: user.userId })
-// removeCartApi({ user_id: user.userId, goods_id: id })
-// clearCartApi({ user_id: user.userId })
-
-// addOrderApi({
-//   user_id: user.userId,
-//   order_state: 1,
-//   order_address: 'asdas',
-//   order_phone: '11111',
-//   goods_id: id,
-// })
-
-// getOrderApi({ user_id: user.userId, order_state: 1 })
-// removeOrderApi({ order_id: 6 })
- */
 
 // 解构 hooks 里面的数据
 const { cartTotalPrice, totalPrice, goodsList } = useCountCartPrice()
 
+setTimeout(() => {
+  console.log('cartTotalPrice.value', cartTotalPrice.value)
+}, 10)
 // 跳到购物车页面
 const toCart = () => {
   dialogVisible.value = false

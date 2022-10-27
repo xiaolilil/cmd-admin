@@ -1,17 +1,18 @@
 <template>
   <div class="line"></div>
-  <div class="carts" v-if="goodsList.length">
+  <div class="carts" v-if="newData.length">
     <table>
-      <tr v-for="v in goodsList" :key="v.goods_id">
+      <tr v-for="v in newData" :key="v.goods_id">
         <td>
           <el-checkbox v-model="v.isCheck" label="" size="large" />
         </td>
         <td class="img">
-          <img :src="v.imgUrl" alt="" />
+          <img :src="v.commodityImgUrl" alt="" />
         </td>
         <td class="goodsname">
-          <span>{{ v.goods_name }}</span>
+          <span>{{ v.commodityName }}</span>
         </td>
+
         <td>
           <el-input-number
             v-model="v.num"
@@ -20,7 +21,7 @@
           />
         </td>
         <td>
-          <b>￥{{ v.price }}</b>
+          <b>￥{{ v.commodityNewPrice }}</b>
         </td>
         <td>
           <el-button type="info" plain @click="handleGoodsItem(v)"
@@ -30,7 +31,7 @@
       </tr>
     </table>
   </div>
-  <div class="res" v-if="goodsList.length">
+  <div class="res" v-if="newData.length">
     <el-checkbox
       v-model="isAllCheck"
       label="全选"
@@ -46,7 +47,7 @@
   </div>
 
   <!-- 空购物车 -->
-  <div class="empty" v-if="!goodsList.length">
+  <div class="empty" v-if="!newData.length">
     <img src="@/assets/null-cart.png" alt="" />
     <div class="tips">
       <h2>您购物车空空的，快去选购吧！</h2>
@@ -66,10 +67,12 @@ import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/el-message-box.css'
 import { useCountCartPrice } from '@/hooks/useCountCartPrice'
 
+// 总价
+const { totalPrice } = useCountCartPrice()
 const token = LocalCache.getCache('pet-token')
 const router = useRouter()
 const { cart } = usePinia()
-const { goodsList } = storeToRefs(cart)
+const { goodsList, newData } = storeToRefs(cart)
 
 const handleChangeNum = (val: number, obj: any) => {
   obj.num = val
@@ -86,7 +89,8 @@ const changeAllCheck = (val: boolean) => {
 
 // 删除单个商品
 const handleGoodsItem = (obj: any) => {
-  goodsList.value = goodsList.value.filter((i) => i.goods_id !== obj.goods_id)
+  cart.delCartGoods(obj.goods_id)
+  newData.value = newData.value.filter((i) => i.goods_id !== obj.goods_id)
 }
 
 // 删除所有商品
@@ -109,9 +113,6 @@ const handleDel = () => {
     },
   })
 }
-
-// 总价
-const { totalPrice } = useCountCartPrice()
 
 // 去首页
 const toHome = () => {

@@ -48,3 +48,11 @@ export interface IOrder {
   user_id: number
   order_state: state
 }
+
+export interface IUpadateInfo {
+  userId: string
+  name: string
+  avatar: string
+  ip: string
+  time?: string
+}

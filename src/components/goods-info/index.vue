@@ -38,10 +38,6 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { ref, watch, reactive } from 'vue'
-import LocalCache from '@/utils/cache'
-import usePinia from '@/store'
-
-const { goods } = usePinia()
 
 const props = withDefaults(
   defineProps<{
@@ -63,7 +59,6 @@ const currGoodsList = ref<any[]>([])
 watch(
   () => props.list,
   (n) => {
-    // currGoodsList.value = n[1]?.data
     data1.value = props.list.slice(0, 8)
     data2.value = props.list.slice(8, 16)
     currGoodsList.value = data1.value
@@ -100,9 +95,6 @@ const changeCurrTypes = (type: string, index: number) => {
 // 跳转到商品详情页
 const router = useRouter()
 const toGoodsInfo = (v: any) => {
-  // goods.setGoodsInfo(v)
-  // LocalCache.setCache('pet-goods', v)
-  console.log('v', v)
   router.push({
     path: '/home/goodsDetails',
     query: {

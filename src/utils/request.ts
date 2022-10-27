@@ -3,6 +3,15 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import LocalCache from './cache'
 import usePinia from '@/store'
 
+// 处理  类型“AxiosResponse<any, any>”上不存在属性“errorinfo”。ts(2339) 脑壳疼！关键一步。
+declare module 'axios' {
+  interface AxiosResponse<T = any> {
+    code: string
+    // 这里追加你的参数
+  }
+  export function create(config?: AxiosRequestConfig): AxiosInstance
+}
+
 // 创建 axios 实例
 const service = axios.create({
   baseURL: 'api',
@@ -18,12 +27,18 @@ service.interceptors.request.use(
         `Expected 'config' and 'config.headers' not to be undefined`,
       )
     }
+    console.log('33', 33)
+
+    if (config.url == '/users/updateImg') {
+      config.headers = { 'Content-Type': 'multipart/form-data' }
+    }
     const { user } = usePinia()
     if (user.token) {
       config.headers.token = user.token
     } else {
       config.headers.token = LocalCache.getCache('pet-token')
     }
+
     return config
   },
   (error) => {

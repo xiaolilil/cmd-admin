@@ -1,7 +1,10 @@
 <template>
   <div class="userInfo">
+    <!-- 顶部导航 -->
     <nav-top></nav-top>
+    <!-- 头部 -->
     <Header></Header>
+    <!-- 内容区域 -->
     <div class="content">
       <div class="nav-left">
         <div class="title">
@@ -22,7 +25,15 @@
         >
           收获地址
         </p>
+        <p
+          class="address"
+          :class="{ active: currComp == 'ChangePassword' }"
+          @click="changeComp('ChangePassword')"
+        >
+          修改密码
+        </p>
       </div>
+      <!-- 子组件展示 -->
       <div class="comps">
         <component :is="componentConfig[currComp]"></component>
       </div>
@@ -35,6 +46,7 @@ import NavTop from '@/components/nav-top/index.vue'
 import Header from './components/header.vue'
 import MyInfo from './components/my-info.vue'
 import Address from './components/address.vue'
+import ChangePassword from './components/changePassword.vue'
 
 import { ref } from 'vue'
 
@@ -42,6 +54,7 @@ import { ref } from 'vue'
 const componentConfig = {
   MyInfo: MyInfo,
   Address: Address,
+  ChangePassword: ChangePassword,
 }
 const currComp = ref<string>('MyInfo')
 const changeComp = (comp: string) => {
@@ -55,27 +68,30 @@ const changeComp = (comp: string) => {
 }
 .content {
   width: 900px;
-  height: 800px;
+  height: 100%;
+  padding-bottom: 100px;
   margin: 0 auto;
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   .nav-left {
     width: 150px;
-    height: 400px;
+    min-height: 200px;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+    box-shadow: 0 0 5px #ccc;
   }
   .comps {
     width: 720px;
-    height: 600px;
+    min-height: 460px;
     background-color: #fff;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
+    padding-bottom: 50px;
+    box-shadow: 0 0 5px #ccc;
   }
 }
 
