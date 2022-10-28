@@ -131,14 +131,16 @@ const toOrder = () => {
       },
     })
   } else {
-    const res = goodsList.value.filter((i) => {
-      return i.isCheck === true
-    })
-    if (res) {
-      cart.setCheckGoosList(res)
-      cart.changeCurrSteps(1)
-      router.push('/home/order')
-    }
+    cart.changeCurrSteps(1)
+    router.push('/home/order')
+    // const res = goodsList.value.filter((i) => {
+    //   return i.isCheck === true
+    // })
+    // if (res) {
+    //   // cart.setCheckGoosList(res)
+    //   // cart.changeCurrSteps(1)
+    //   // router.push('/home/order')
+    // }
   }
 }
 </script>

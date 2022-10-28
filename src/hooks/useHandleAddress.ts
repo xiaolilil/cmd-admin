@@ -1,6 +1,8 @@
-import { ref, reactive, watch, computed } from 'vue'
+import { ref, reactive, watch, computed, onMounted } from 'vue'
 import usePinia from '@/store'
-export function useHandleAddress() {
+import LocalCache from '@/utils/cache'
+
+export function useHandleAddress(pageName: string) {
   const { cart } = usePinia()
   // 收获地址
   const formatAddress = computed(() => {
@@ -21,10 +23,17 @@ export function useHandleAddress() {
   const formatPhone = (tel: any) => {
     return tel.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
   }
+
   // 地址对象数据
-  const formData = computed(() => {
-    return cart.addressData
+  // let formData: any = computed(() => {
+  //   return cart.addressData
+  // })
+  const state = reactive({
+    formData: { ...cart.addressData },
   })
+
+  let formData = reactive<any>({ ...cart.addressData })
+
   // 当前弹窗标题
   const currTilte = ref('')
   // 是否显示弹窗
@@ -35,24 +44,36 @@ export function useHandleAddress() {
     currTilte.value = '新增收货地址'
     isShowDialog.value = true
   }
+
   // 编辑地址
-  const hadnleEdit = () => {
+  const handleEdit = () => {
     currTilte.value = '编辑收货地址'
     isShowDialog.value = true
   }
+
   // 删除地址
   const handleDel = () => {
     cart.delAddressData()
   }
 
+  onMounted(() => {
+    // 如果没有地址，就先弹窗让用户添加地址
+    if (pageName === 'order') {
+      if (formData.detailsAddress == '') {
+        isShowDialog.value = true
+      }
+    }
+  })
+
   return {
     handleAdd,
     handleDel,
-    hadnleEdit,
+    handleEdit,
     formatPhone,
     formData,
     formatAddress,
     currTilte,
     isShowDialog,
+    state,
   }
 }

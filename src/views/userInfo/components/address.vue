@@ -16,7 +16,7 @@
       <p>{{ formatPhone(formData.mobile) }}</p>
     </div>
     <div class="handle">
-      <span @click="hadnleEdit">编辑</span>
+      <span @click="handleEdit">编辑</span>
       <span @click="handleDel">删除</span>
     </div>
   </div>
@@ -41,7 +41,7 @@ import { useHandleAddress } from '@/hooks/useHandleAddress'
 const {
   handleAdd,
   handleDel,
-  hadnleEdit,
+  handleEdit,
   currTilte,
   isShowDialog,
   formData,

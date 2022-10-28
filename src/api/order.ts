@@ -1,9 +1,13 @@
 import service from '@/utils/request'
 import { IAddOrder, IOrder } from '@/types/apis'
-
+// user_id: number
+// goods_id: number
+// order_address: string
+// order_state: state
+// order_phone: string
 /**
  * @description: 添加订单
- * @param {IAddOrder} data
+ * @param {IAddOrder} data {user_id, goods_id,order_address, order_state,order_phone}
  * @return {*}
  */
 export function addOrderApi(data: IAddOrder) {

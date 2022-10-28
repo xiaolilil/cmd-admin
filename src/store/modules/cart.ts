@@ -107,9 +107,12 @@ const useCartStore = defineStore({
     saveAddressData(payload: any) {
       this.addressData = payload
     },
+    // 删除地址
     delAddressData() {
       this.addressData = clearObj(this.addressData)
+      console.log(this.addressData)
     },
+    // 保存新数据
     saveNewData(payload: any) {
       this.newData = payload
     },

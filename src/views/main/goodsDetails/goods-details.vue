@@ -143,8 +143,6 @@
 </template>
 
 <script lang="ts" setup>
-// @ts-ignore
-// import { getClassifyApi } from '@/apis/goodsDetails.js'
 import {
   getGoodsDataApi,
   getCommentApi,
@@ -252,6 +250,7 @@ const addGoodsToCart = async () => {
     return
   } else {
     const res = await cart.addCart(id)
+    console.log('res', res)
     if (res) {
       dialogVisible.value = true
     } else {

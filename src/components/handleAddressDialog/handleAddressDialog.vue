@@ -96,9 +96,20 @@ watch(
     }
   },
 )
-
 // 地址表单
 let form = reactive({ ...props.formData })
+watch(
+  () => props.currTitle,
+  (newData) => {
+    if (newData === '新增收货地址') {
+      form.name = ''
+      form.mobile = ''
+      form.detailsAddress = ''
+      form.address = []
+    }
+  },
+)
+
 const formRef = ref<InstanceType<typeof ElForm>>()
 
 // 保存地址
@@ -115,6 +126,10 @@ const saveAddress = () => {
 const handleClose = (done: () => void) => {
   dialogVisible.value = false
   emits('handleColse')
+  form.name = props.formData.name
+  form.mobile = props.formData.mobile
+  form.detailsAddress = props.formData.detailsAddress
+  form.address = props.formData.address
 }
 </script>
 
