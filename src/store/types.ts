@@ -27,10 +27,6 @@ export interface ICartState {
   goodsList: any[]
   currSteps: number
   userAddress: any[]
-  isCheckGoodsList: any[]
-  paidOrder: any[]
-  unpaidOrder: any[]
-  theUnpaid: any
   addressData: any
   newData: any[]
 }

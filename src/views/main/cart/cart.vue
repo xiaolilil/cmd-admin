@@ -3,9 +3,6 @@
   <div class="carts" v-if="newData.length">
     <table>
       <tr v-for="v in newData" :key="v.goods_id">
-        <td>
-          <el-checkbox v-model="v.isCheck" label="" size="large" />
-        </td>
         <td class="img">
           <img :src="v.commodityImgUrl" alt="" />
         </td>
@@ -32,13 +29,6 @@
     </table>
   </div>
   <div class="res" v-if="newData.length">
-    <el-checkbox
-      v-model="isAllCheck"
-      label="全选"
-      size="large"
-      @change="changeAllCheck"
-    />
-    <span class="del" @click="handleDel">[ 删除选中商品 ]</span>
     <p class="total">
       <span>总价:</span>
       <b>{{ totalPrice }}</b>
@@ -58,12 +48,10 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
 import usePinia from '@/store'
 import { storeToRefs } from 'pinia'
 import LocalCache from '@/utils/cache'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import 'element-plus/theme-chalk/el-message.css'
+import { ElMessageBox } from 'element-plus'
 import 'element-plus/theme-chalk/el-message-box.css'
 import { useCountCartPrice } from '@/hooks/useCountCartPrice'
 
@@ -72,46 +60,16 @@ const { totalPrice } = useCountCartPrice()
 const token = LocalCache.getCache('pet-token')
 const router = useRouter()
 const { cart } = usePinia()
-const { goodsList, newData } = storeToRefs(cart)
+const { newData } = storeToRefs(cart)
 
 const handleChangeNum = (val: number, obj: any) => {
   obj.num = val
 }
 
-// 全选
-const isAllCheck = ref(true)
-const changeAllCheck = (val: boolean) => {
-  isAllCheck.value = val
-  goodsList.value.forEach((i) => {
-    i.isCheck = !i.isCheck
-  })
-}
-
-// 删除单个商品
+// 删除商品
 const handleGoodsItem = (obj: any) => {
   cart.delCartGoods(obj.goods_id)
   newData.value = newData.value.filter((i) => i.goods_id !== obj.goods_id)
-}
-
-// 删除所有商品
-const handleDel = () => {
-  ElMessageBox.alert('确定删除选中商品吗?', '好伙伴宠物商城提示', {
-    confirmButtonText: '确定',
-    callback: (action: any) => {
-      if (action == 'confirm') {
-        goodsList.value = []
-        ElMessage({
-          type: 'info',
-          message: `删除商品成功`,
-        })
-      } else {
-        ElMessage({
-          type: 'info',
-          message: `已取消删除`,
-        })
-      }
-    },
-  })
 }
 
 // 去首页
@@ -121,7 +79,6 @@ const toHome = () => {
 
 // 去订单页面
 const toOrder = () => {
-  // cart.deleteUnpaid()
   // 如果未登录，就提示登录后再进行操作
   if (!token) {
     ElMessageBox.alert('当前你还未登录，请登录后再进行购买', '提示', {
@@ -133,14 +90,6 @@ const toOrder = () => {
   } else {
     cart.changeCurrSteps(1)
     router.push('/home/order')
-    // const res = goodsList.value.filter((i) => {
-    //   return i.isCheck === true
-    // })
-    // if (res) {
-    //   // cart.setCheckGoosList(res)
-    //   // cart.changeCurrSteps(1)
-    //   // router.push('/home/order')
-    // }
   }
 }
 </script>

@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="pay">
     <div class="pay-top">
       <i class="iconfont icon-wancheng1"></i>
@@ -7,13 +7,14 @@
           <p class="msg">恭喜，订单提交成功!</p>
           <div class="order">
             <p>
-              订单号： <span class="odd">{{ orderInfo.orderId }} </span>
-              <span
-                >订单中的商品，系统自动为您保留到 {{ orderInfo.deadline }}</span
-              >
+              订单号：
+              <span class="odd">{{ state.order_id }} </span>
+              <!-- <span
+                >订单中的商品，系统自动为您保留到 {{ orderInfo }}</span
+              > -->
             </p>
             <p class="price">
-              应付金额: <span>{{ orderInfo.totalPrice }}</span> 元
+              应付金额: <span>{{ state.allPrice }}</span> 元
             </p>
           </div>
         </div>
@@ -27,10 +28,10 @@
     <div class="pay-content">
       <div class="title">
         <p>
-          普通订单付款 <b class="price">￥{{ orderInfo.totalPrice }}</b>
+          普通订单付款 <b class="price">￥{{ state.allPrice }}</b>
         </p>
         <p>
-          <span>订单号: {{ orderInfo.orderId }}</span>
+          <span>订单号: {{ state.order_id }}</span>
         </p>
       </div>
       <div class="zfb">
@@ -48,61 +49,42 @@
   <div v-if="loading" class="spinner"></div>
   <el-result v-if="isShowRes" class="res" icon="success" title="支付成功">
   </el-result>
-</template> -->
-<!-- 
+</template>
+-->
+
 <script lang="ts" setup>
-// @ts-ignore
-import { placeOrderApi, orderPayApi } from '@/apis/order.js'
-import LocalCache from '@/utils/cache'
-import { ref } from 'vue'
+import { getOrderApi, removeOrderApi } from '@/api/order'
+import { ref, reactive } from 'vue'
 import { useCountCartPrice } from '@/hooks/useCountCartPrice'
-import { useRoute, useRouter } from 'vue-router'
-import usePinia from '@/store'
-import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const route = useRoute()
-const { cart } = usePinia()
-const { goodsList, isCheckGoodsList, userAddress, theUnpaid } =
-  storeToRefs(cart)
-const { totalPrice, theUnpaidPrice } = useCountCartPrice()
+const { userId } = useCountCartPrice()
 
-const orderList = isCheckGoodsList.value
-const allPrice = ref(0)
-allPrice.value = totalPrice.value
-if (route.path != 'home/order') {
-  allPrice.value = theUnpaidPrice.value
-}
-
+const state = reactive<{
+  allPrice: number
+  orderInfo: any[]
+  order_id: string
+}>({
+  allPrice: 0,
+  orderInfo: [],
+  order_id: '',
+})
 // 获取订单信息
-const orderInfo = ref<any>({})
-const orderId = ref(0)
 async function getOrderInfo() {
-  const { data: res } = await placeOrderApi({
-    goods: theUnpaid.value,
-    total_price: allPrice.value,
+  const { data: res } = await getOrderApi({
+    user_id: userId,
+    order_state: 0,
   })
-  orderInfo.value = res
-  orderId.value = res.orderId
-  // 保存到未支付订单去
-  cart.saveUnpaidOrder({
-    pay: totalPrice.value,
-    goodsList: isCheckGoodsList.value,
-    address: userAddress.value[0],
-    orderId: orderId.value,
-    isPay: 0,
-    name: userAddress.value[0].name,
-  })
+  state.orderInfo = res
+  state.order_id = res[0].order_id
 
-  setTimeout(() => {
-    goodsList.value = goodsList.value.filter((i) => {
-      return i.isCheck != true
-    })
-  }, 500)
+  for (const i of res) {
+    state.allPrice += Number(i.commodityNewPrice)
+  }
 }
 getOrderInfo()
 
-const unpaidOrder = ref()
 // 显示支付完成变量
 const isShowRes = ref(false)
 // 显示支付动画变量
@@ -116,25 +98,23 @@ const pay = () => {
       isShowRes.value = false
 
       // 支付订单
-      orderPayApi({
-        pay: totalPrice.value,
-        goods: isCheckGoodsList.value,
-        address: userAddress.value[0],
-        orderId: orderId.value,
-      }).then((res: any) => {
-        cart.savePaidOrder(res.data)
-        router.push('/home/viewOrder')
-        // 支付成功，把当前这个未支付的订单删除
-        unpaidOrder.value = unpaidOrder.value.filter((i: any) => {
-          return i.orderId != orderId.value
-        })
-        // console.log('unpaidOrder.value', unpaidOrder.value)
-      })
+      // orderPayApi({
+      //   pay: totalPrice.value,
+      //   goods: isCheckGoodsList.value,
+      //   address: userAddress.value[0],
+      //   orderId: orderId.value,
+      // }).then((res: any) => {
+      //   router.push('/home/viewOrder')
+      //   // 支付成功，把当前这个未支付的订单删除
+      //   unpaidOrder.value = unpaidOrder.value.filter((i: any) => {
+      //     return i.orderId != orderId.value
+      //   })
+      // })
     }, 1000)
   }, 3000)
 }
 </script>
- -->
+
 <style lang="less" scoped>
 @import '@/style/common.less';
 

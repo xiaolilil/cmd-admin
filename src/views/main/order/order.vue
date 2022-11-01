@@ -56,7 +56,7 @@
   <handle-address-dialog
     :dialog-visible="isShowDialog"
     :curr-title="currTilte"
-    :form-data="state.formData"
+    :form-data="formData"
     :is-show-default="false"
     @handle-colse="isShowDialog = false"
   ></handle-address-dialog>
@@ -67,6 +67,7 @@ import { useRouter } from 'vue-router'
 import HandleAddressDialog from '@/components/handleAddressDialog/handleAddressDialog.vue'
 import { useHandleAddress } from '@/hooks/useHandleAddress'
 import { useCountCartPrice } from '@/hooks/useCountCartPrice'
+import { addOrderApi } from '@/api/order'
 
 const router = useRouter()
 const {
@@ -77,14 +78,26 @@ const {
   formatAddress,
   currTilte,
   isShowDialog,
-  state,
+  userId,
 } = useHandleAddress('order')
 // 商品总价
-const { totalPrice } = useCountCartPrice()
+const { totalPrice, cart } = useCountCartPrice()
 
 const submit = () => {
-  router.push({
-    name: 'pay',
+  cart.newData.map(async (i: any) => {
+    const res = await addOrderApi({
+      user_id: userId,
+      goods_id: i.goods_id,
+      order_address: formatAddress.value,
+      order_state: 0,
+      order_phone: formData.value.mobile,
+    })
+    if (res.code == '200') {
+      cart.delNewData()
+      router.push({
+        name: 'pay',
+      })
+    }
   })
 }
 </script>

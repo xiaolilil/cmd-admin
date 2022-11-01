@@ -6,6 +6,7 @@ export function useCountCartPrice() {
   const { user, cart } = usePinia()
   const { goodsList, newData } = storeToRefs(cart)
 
+  const userId = user.userId
   watch(
     () => goodsList.value.length,
     () => {
@@ -57,18 +58,11 @@ export function useCountCartPrice() {
     return total
   })
 
-  const theUnpaidPrice = computed(() => {
-    // let total = 0
-    // 循环计算商品总价
-    // for (let i = 0; i < unpaidOrder.value.length; i++) {
-    //   for (let k = 0; k < unpaidOrder.value[i].goodsList.length; k++) {
-    //     total +=
-    //       unpaidOrder.value[i].goodsList[k].num *
-    //       unpaidOrder.value[i].goodsList[k].price
-    //   }
-    // }
-    // return theUnpaid.value.goodsList[0].num * theUnpaid.value.goodsList[0].price
-  })
-
-  return { totalPrice, goodsList, theUnpaidPrice, newData }
+  return {
+    totalPrice,
+    goodsList,
+    newData,
+    userId,
+    cart,
+  }
 }

@@ -16,10 +16,6 @@ const useCartStore = defineStore({
       newData: [],
       currSteps: 0,
       userAddress: [],
-      isCheckGoodsList: [],
-      paidOrder: [],
-      unpaidOrder: [],
-      theUnpaid: {},
       addressData: {
         name: '',
         mobile: '',
@@ -34,7 +30,6 @@ const useCartStore = defineStore({
     setGoodsList(payload: any) {
       // 如果购物车没有商品，直接进行 push 添加
       if (!this.goodsList.length) {
-        console.log('233', 233)
         this.goodsList.push(payload)
       } else {
         this.goodsList.forEach((i) => {
@@ -48,30 +43,16 @@ const useCartStore = defineStore({
         })
       }
     },
+    // 切换步骤
     changeCurrSteps(payload: number) {
       this.currSteps = payload
     },
+    // 保存用户堵住
     saveUserAddress(payload: any) {
       this.userAddress = []
       this.userAddress.push(payload)
-      console.log('this.userAddress', this.userAddress)
     },
-    setCheckGoosList(list: any[]) {
-      this.isCheckGoodsList = list
-    },
-    savePaidOrder(list: any) {
-      this.paidOrder.push(list)
-    },
-    saveUnpaidOrder(list: any) {
-      this.unpaidOrder.push(list)
-    },
-    deleteUnpaid() {
-      this.unpaidOrder = []
-      this.paidOrder = []
-    },
-    toPayGoods(obj: any) {
-      this.theUnpaid = obj
-    },
+
     // 添加到购物车
     async addCart(goods_id: number) {
       const res = await addCartApi({
@@ -92,7 +73,7 @@ const useCartStore = defineStore({
       })
       this.goodsList = res
     },
-
+    // 删除购物车数据
     async delCartGoods(payload: any) {
       const res = await removeCartApi({
         user_id: useUserStores().userId,
@@ -110,11 +91,14 @@ const useCartStore = defineStore({
     // 删除地址
     delAddressData() {
       this.addressData = clearObj(this.addressData)
-      console.log(this.addressData)
     },
     // 保存新数据
     saveNewData(payload: any) {
       this.newData = payload
+    },
+    delNewData() {
+      this.goodsList = []
+      this.newData = []
     },
   },
   persist: {

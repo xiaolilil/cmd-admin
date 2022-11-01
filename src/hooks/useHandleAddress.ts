@@ -3,7 +3,7 @@ import usePinia from '@/store'
 import LocalCache from '@/utils/cache'
 
 export function useHandleAddress(pageName: string) {
-  const { cart } = usePinia()
+  const { cart, user } = usePinia()
   // 收获地址
   const formatAddress = computed(() => {
     let address = ''
@@ -25,14 +25,9 @@ export function useHandleAddress(pageName: string) {
   }
 
   // 地址对象数据
-  // let formData: any = computed(() => {
-  //   return cart.addressData
-  // })
-  const state = reactive({
-    formData: { ...cart.addressData },
+  let formData: any = computed(() => {
+    return cart.addressData
   })
-
-  let formData = reactive<any>({ ...cart.addressData })
 
   // 当前弹窗标题
   const currTilte = ref('')
@@ -59,12 +54,13 @@ export function useHandleAddress(pageName: string) {
   onMounted(() => {
     // 如果没有地址，就先弹窗让用户添加地址
     if (pageName === 'order') {
-      if (formData.detailsAddress == '') {
+      if (formData.value.detailsAddress == '') {
         isShowDialog.value = true
       }
     }
   })
 
+  const userId = user.userId
   return {
     handleAdd,
     handleDel,
@@ -74,6 +70,6 @@ export function useHandleAddress(pageName: string) {
     formatAddress,
     currTilte,
     isShowDialog,
-    state,
+    userId,
   }
 }
